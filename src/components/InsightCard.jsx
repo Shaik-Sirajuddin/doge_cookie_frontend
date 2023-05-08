@@ -26,9 +26,9 @@ const InsightCard = ({ imgUrl, title, subtitle, index }) => (
         className="lg:flex hidden items-center justify-center w-[100px] h-[100px] rounded-full bg-transparent border-[1px] border-white"
       >
         <img
-          src="/images/arrow.svg"
+          src="/images/doge-character1.png"
           alt="arrow"
-          className="w-[40%] h-[40%] object-contain"
+          className="w-[80%] h-[80%] object-contain"
         />
       </div>
     </div>

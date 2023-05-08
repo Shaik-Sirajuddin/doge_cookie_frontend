@@ -20,14 +20,12 @@ const About = () => (
         variants={fadeIn('up', 'tween', 0.2, 1)}
         className="mt-[8px] font-normal sm:text-[32px] text-[20px] text-center text-secondary-white"
       >
-        <span className="font-extrabold text-white">Doge Cookie</span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen {' '}
-        <span className="font-extrabold text-white">
-          somwthin about doge cookie
+        <span className="font-extrabold text-white">Doge cookie </span>
+        $DCK is a full-on community token with the main goal of generating wealth solely for its members.{' '}
+        <span className="font-extrabold text-white"> The utilities are built through a formidable ecosystem and 90% of the generated revenue will be infused back into the community.
         </span>{' '}
-        of today, using only{' '}
-        <span className="font-extrabold text-white">the industry'</span> about doge cookie
-        rthe industry's st{' '}
-        <span className="font-extrabold text-white"> the indus</span> about doge cookie
+        {' '}
+        <span className="font-extrabold text-white">To attain such wealth generation on our community-based token, The team has put in place several activities such as voting to earn, stake to earn, and lots more to give the community high earning power.</span> {' '} <span className="font-extrabold text-white"> We build the $DCK platform on the blockchain technology. Therefore, you can be sure that our voting system is secure and transparent.</span> Furthermore, we aim to go above and beyond by creating a blockchain ecosystem that self-promotes using NFTs to provide access to additional material and events that make the blockchain hype ship worthwhile to board
       </motion.p>
 
       <motion.img

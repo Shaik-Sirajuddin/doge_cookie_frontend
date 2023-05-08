@@ -1,0 +1,25 @@
+.timer {
+    display:flex;
+    justify-content: center;
+    justify-items: center;
+    font-weight: 600;
+    margin: 10px 0px 0px 0px;
+    font-size: x-large;
+
+}
+
+.timer > div {
+    margin: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .timer {
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        margin-left: 200px;
+        margin-right: 200px;
+        font-weight: 700;
+        font-size: small;
+    }
+}

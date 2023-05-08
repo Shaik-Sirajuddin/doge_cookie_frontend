@@ -7,7 +7,7 @@ import { staggerContainer } from '../utils/motion';
 import { ExploreCard, TitleText, TypingText } from '../components';
 
 const Explore = () => {
-  const [active, setActive] = useState('world-2');
+  const [active, setActive] = useState('nft-2');
 
   return (
     <section className={`${styles.paddings} bg-red-500`} id="explore">
@@ -20,7 +20,7 @@ const Explore = () => {
       >
         <TypingText title="| The Doge Cookieverse" textStyles="text-center" />
         <TitleText
-          title={<>Choose the NFT world you want <br className="md:block hidden" /> to explore</>}
+          title={<>Doge Cookie NFT  <br className="md:block hidden" />Marketplace</>}
           textStyles="text-center"
         />
         <div className="mt-[50px] flex lg:flex-row flex-col min-h-[70vh] gap-5">
