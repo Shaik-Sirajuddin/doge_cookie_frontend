@@ -9,12 +9,12 @@ const Footer = () => (
     variants={footerVariants}
     initial="hidden"
     whileInView="show"
-    className={`${styles.xPaddings} py-8 relative`}
+    className={`${styles.xPaddings} py-16 relative`}
   >
     <div className="footer-gradient" />
-    <div className={`${styles.innerWidth} mx-auto flex flex-col gap-8`}>
+    <div className={`${styles.innerWidth} mx-100px flex flex-col gap-6`}>
       <div className="flex items-center justify-between flex-wrap gap-5">
-        <h4 className="font-bold md:text-[64px] text-[44px] text-white">
+        <h4 className="font-bold md:text-[64px] text-[44px] text-white pl-8">
           JOIN NOW
         </h4>
         <button type="button" className="flex items-center h-fit py-4 px-6 bg-[#25618B] rounded-[32px] gap-[12px]">
@@ -33,7 +33,7 @@ const Footer = () => (
         <div className="mb-[50px] h-[2px] bg-white opacity-10" />
 
         <div className="flex items-center justify-between flex-wrap gap-4">
-          <h4 className="font-extrabold text-[24px] text-white">
+          <h4 className="font-extrabold text-[24px] text-white pl-8">
             DOGE COOKIE
           </h4>
           <p className="font-normal text-[14px] text-white opacity-50">

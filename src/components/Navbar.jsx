@@ -12,16 +12,14 @@ const Navbar = () => {
 
   return (
     <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
-      <div className="lg:flex-1 flex flex-row max-w-[458px] py-2 pl-4 pr-2 h-[52px] rounded-[100px]">
+      <div className="lg:flex-1 flex flex-row max-w-[458px] py-2 pl-4 pr-2 h-[52px] rounded-[100px]" />
 
-        
-      </div>
 
       <div className="sm:flex hidden flex-row justify-end gap-4">
 
-        <Link to="/profile">
-          <div className="w-[52px] h-[52px] rounded-full bg-[#2c2f32] flex justify-center items-center cursor-pointer">
-            <img src={icedogelogo} alt="user" className="w-[60%] h-[60%] object-contain" />
+        <Link to="/">
+          <div className="w-[52px] h-[52px] rounded-full flex justify-center items-center cursor-pointer ">
+            <div  className="w-[60%] h-[60%] object-contain" />
           </div>
         </Link>
       </div>
