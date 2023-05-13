@@ -6,7 +6,7 @@ import WhatsNew from './WhatsNew';
 import World from './World';
 import Insights from './Insights';
 import Feedback from './Feedback';
-import DogeCookie from './DogeCookie';
+
 
 export {
   Hero,
@@ -16,6 +16,5 @@ export {
   WhatsNew,
   World,
   Insights,
-  Feedback,
-  DogeCookie
+  Feedback
 };

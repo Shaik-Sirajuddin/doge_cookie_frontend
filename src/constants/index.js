@@ -1,3 +1,41 @@
+import { presale, dashboard, logout, staking, profile, withdraw } from '../assets';
+
+export const navlinks = [
+  {
+    name: 'dashboard',
+    imgUrl: dashboard,
+    link: '/',
+  },
+  {
+    name: 'presale',
+    imgUrl: presale,
+    link: '/presale',
+  },
+  {
+    name: 'staking',
+    imgUrl: staking,
+    link: '/staking',
+    // disabled: true,
+  },
+  {
+    name: 'withdraw',
+    imgUrl: withdraw,
+    link: '/',
+    disabled: true,
+  },
+  {
+    name: 'profile',
+    imgUrl: profile,
+    link: '/',
+  },
+  {
+    name: 'logout',
+    imgUrl: logout,
+    link: '/',
+    disabled: true,
+  },
+];
+
 export const exploreWorlds = [
   {
     id: 'nft-1',

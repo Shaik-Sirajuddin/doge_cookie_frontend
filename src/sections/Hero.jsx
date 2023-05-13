@@ -1,45 +1,51 @@
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
+// import { useState } from 'react';
 
 import styles from '../styles';
-import { slideIn, staggerContainer, textVariant } from '../utils/motion';
+// import { slideIn, staggerContainer } from '../utils/motion';
 import CountdownTimer from '../components/CountdownTimer/CountdownTimer';
+// import { DogeCookie } from '../pages';
 
 
-const Hero = () => (
-  <section className={`${styles.yPaddings} sm:pl-16 pl-6`}>
-    <motion.div
-      variants={staggerContainer}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: false, amount: 0.25 }}
-      className={`${styles.innerWidth} mx-auto flex flex-col`}
-    >
-  
-      <div className="flex justify-center items-center flex-col z-10">
-        <div>
-          <CountdownTimer />
+const Hero = () => {
+  //    const [openConnect, setOpenConnect] = useState(false);
+  //  const handleOnClose = () => setOpenConnect(false)
+return (
+  <section>
+    <div className="flex justify-center items-center flex-col p-20px">
+      <CountdownTimer />
+    </div>
+    <div className="flex flex-row justify-center items-center w-full">
+      <h1 className="flex font-poppins font-semibold ss:text-[72px] text-[92px] text-white ss:leading-[100.8px] leading-[75px] ">
+        <span className="font-hero"></span>  <br className="sm:block hidden" />{" "}
+      <span className="text-gradient justify-center items-center">PRESALE</span>{" "}
+      </h1>
+          <div className="ss:flex hidden md:mr-4 mr-0 w-6" />
         </div>
-      
-        <motion.h1 variants={textVariant(1.1)} className={styles.heroHeading}>
-          presale
-        </motion.h1>
-        <motion.div
-          variants={textVariant(1.2)}
-          className="flex flex-col justify-center items-center"
-        >
+        <div className="flex flex-row justify-center items-center w-full">
+        <h1 className="text-gradient justify-center items-center font-semibold text-white">
+          IS LIVE NOW !!!
+        </h1>
+        </div>
+        <h1 className="font-poppins font-semibold ss:text-[68px] text-[52px] text-white ss:leading-[100.8px] leading-[75px] w-full">
+        </h1>
+          <div className=" bg-opacity-30">
+      <div className="max-w-3xl mx-auto ">
+        <span className="text-center py-2">
         
-          <h1 className={styles.heroHeading}>live!!! </h1>
-       
-          <h1 className={styles.heroHeading}>{" "} </h1>
-          
-        </motion.div>
+         
+        </span>
+            <div  className="rounded-full bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 text-white px-5 py-4 rounded hover:scale-95 transition text-xl" />
       </div>
+      </div>
+        
+        
+        <div className={`${styles.paragraph} max-w-[470px] mt-5`}/>
+    
 
-      <motion.div
-        variants={slideIn('right', 'tween', 0.2, 1)}
-        className="relative w-full md:-mt-[20px] -mt-[12px]"
-      >
-        <div className="absolute w-full h-[300px] hero-gradient rounded-tl-[140px] z-[0] -top-[30px] static"  />
+
+      <div className="relative w-full md:-mt-[20px] -mt-[0px]">
+        <div className="absolute w-full h-[300px] hero-gradient rounded-tl-[140px] z-[0] -top-[30px]"  />
         <div >
            <img
           src="/images/unibg2.png"
@@ -59,9 +65,13 @@ const Hero = () => (
       
         
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    
   </section>
-);
+) 
+};
 
 export default Hero;
+
+
+
