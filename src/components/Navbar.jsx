@@ -17,7 +17,7 @@ const Navbar = () => {
 
       <div className="sm:flex hidden flex-row justify-end gap-4">
 
-        <Link to="/">
+        <Link to="/profile">
           <div className="w-[52px] h-[52px] rounded-full flex justify-center items-center cursor-pointer ">
             <div  className="w-[60%] h-[60%] object-contain" />
           </div>
@@ -60,9 +60,6 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-
-           
-        
           </div>
         </div>
     </div>

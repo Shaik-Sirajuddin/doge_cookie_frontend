@@ -7,17 +7,15 @@ import './index.css';
 
 const App = () => {
   return (
-    <div className="relative sm:-8 p-4 bg-primary-black min-h-screen overflow-hidden flex flex-col">
+    <div className="relative sm:-8 p-8 bg-primary-black min-h-screen overflow-hidden ">
       <div className="sm:flex hidden mr-10 relative">
         <Sidebar />
       </div>
       
 
-      <div className="flex max-sm:w-full max-w-[1280px] sm:pr-5">
-        
+      <div className="max-sm:w-full max-w-[1280px] lg:mx-24 sm:pr-5">
           <Navbar />
   
-          
             <Routes>
               <Route path="/" element={<Home/>} />
               <Route path="/presale" element={<DogeCookie/>} />
@@ -25,9 +23,7 @@ const App = () => {
             </Routes>
 
          
-      </div>
-      <div className='p-100px'>
-      <Footer/>
+          <Footer/>
       </div>
     
     </div>

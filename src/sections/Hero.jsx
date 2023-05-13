@@ -12,11 +12,11 @@ const Hero = () => {
   //  const handleOnClose = () => setOpenConnect(false)
 return (
   <section>
-    <div className="flex justify-center items-center flex-col p-20px">
+    <div className="flex justify-center items-center flex-col p-20px ">
       <CountdownTimer />
     </div>
     <div className="flex flex-row justify-center items-center w-full">
-      <h1 className="flex font-poppins font-semibold ss:text-[72px] text-[92px] text-white ss:leading-[100.8px] leading-[75px] ">
+      <h1 className="flex font-poppins font-semibold ss:text-[72px] text-[92px] text-white ss:leading-[100.8px] leading-[75px] m-10 ">
         <span className="font-hero"></span>  <br className="sm:block hidden" />{" "}
       <span className="text-gradient justify-center items-center">PRESALE</span>{" "}
       </h1>
