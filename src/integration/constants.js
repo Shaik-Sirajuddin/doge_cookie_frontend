@@ -1,6 +1,9 @@
-export const presaleAddress = "0xa0e690022ce31b5e84c20a964650914d1a32d923"
-export const tokenAddress = "0x7A88e240E28D5d2FdfA4d9accBa29F49D11376aa"
-export const usdtAddrsss = "0x7169D38820dfd117C3FA1f22a697dBA58d90BA06"
+export const bnbUsdAddress = "0x4D5C32A6BFDfd2932d491ECac7A4aEF796744168"
+export const ethUsdAddress = ""
+export const dckAddress = "0x7A88e240E28D5d2FdfA4d9accBa29F49D11376aa"
+export const bnbPresaleAddress = "0x9Ce4adcA534D145548b19d3172549FE2F8dA4036"
+export const ethPresaleAddress = ""
+
 export const presaleAbi = [
 	{
 		"inputs": [

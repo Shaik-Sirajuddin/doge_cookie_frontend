@@ -1,12 +1,18 @@
 /** @format */
 
-import { Web3Button } from "@web3modal/react";
-import React, { useState } from "react";
-import { presaleAbi, presaleAddress } from "../integration/constants";
-import { useAccount, useContractWrite } from "wagmi";
+import React, { useEffect, useState } from "react";
+import {
+  bnbPresaleAddress,
+  bnbUsdAddress,
+  ethPresaleAddress,
+  ethUsdAddress,
+  presaleAbi,
+  presaleAddress,
+  tokenAbi,
+} from "../integration/constants";
 import { ethers, parseEther } from "ethers";
 import Web3 from "web3";
-
+import { useConnectWallet } from "@web3-onboard/react";
 const styles = {
   container: {
     display: "flex",
@@ -44,6 +50,17 @@ function DogeCookie() {
   const [usdtAmount, setUsdtAmount] = useState("");
   const [referralCode, setReferralCode] = useState("");
   const [buyingMethod, setBuyingMethod] = useState("ethereum");
+  const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+  const [ethersProvider, setProvider] = useState(null);
+
+  useEffect(() => {
+    // If the wallet has a provider than the wallet is connected
+    if (wallet?.provider) {
+      // setProvider(new ethers.providers.Web3Provider(wallet.provider, "any"));
+      // if using ethers v6 this is:
+      setProvider(new ethers.BrowserProvider(wallet.provider, "any"));
+    }
+  }, [wallet]);
 
   const handleEthAmountChange = (e) => {
     setEthAmount(e.target.value);
@@ -56,13 +73,6 @@ function DogeCookie() {
   const handleReferralCodeChange = (e) => {
     setReferralCode(e.target.value);
   };
-  const { address, isConnecting, isDisconnected } = useAccount();
-  const { data, isLoading, isSuccess, write } = useContractWrite({
-    address: presaleAddress,
-    abi: presaleAbi,
-    functionName: "buyWithNativeToken",
-  });
-
   const handleBuyToken = () => {
     // Perform the purchase token logic here
     console.log("Buy button clicked!");
@@ -73,12 +83,16 @@ function DogeCookie() {
 
     let ethersToWei = Web3.utils.toWei(ethAmount, "ether");
     console.log(ethersToWei);
-    write({
-      args: [ethersToWei, referralCode],
-      from: address,
-      value: parseEther(ethAmount),
-    });
+    // write({
+    //   args: [ethersToWei, referralCode],
+    //   from: address,
+    //   value: parseEther(ethAmount),
+    // });
   };
+
+  const buyWithUsdt = () => {};
+
+  const buyWithNative = () => {};
 
   const handleBuyingMethodChange = (method) => {
     setBuyingMethod(method);
@@ -86,7 +100,12 @@ function DogeCookie() {
 
   return (
     <div style={styles.container}>
-      <Web3Button />
+      <button
+        disabled={connecting}
+        onClick={() => (wallet ? disconnect(wallet) : connect())}
+      >
+        {connecting ? "connecting" : wallet ? "disconnect" : "connect"}
+      </button>
       <h1>Token Purchase Page</h1>
       <div style={styles.radioContainer}>
         <label style={styles.label}>
