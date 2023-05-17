@@ -1,8 +1,8 @@
 export const bnbUsdAddress = "0x4D5C32A6BFDfd2932d491ECac7A4aEF796744168"
-export const ethUsdAddress = ""
+export const ethUsdAddress = "0x4D5C32A6BFDfd2932d491ECac7A4aEF796744168"
 export const dckAddress = "0x7A88e240E28D5d2FdfA4d9accBa29F49D11376aa"
 export const bnbPresaleAddress = "0x9Ce4adcA534D145548b19d3172549FE2F8dA4036"
-export const ethPresaleAddress = ""
+export const ethPresaleAddress = "0x9ce4adca534d145548b19d3172549fe2f8da4036"
 
 export const presaleAbi = [
 	{

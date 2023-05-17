@@ -9,7 +9,9 @@ import ledgerModule from '@web3-onboard/ledger'
 import walletConnectModule from '@web3-onboard/walletconnect'
 import coinbaseModule from '@web3-onboard/coinbase'
 import trustModule from '@web3-onboard/trust'
-
+import { toast, } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 const App = () => {
 
   const INFURA_KEY = '30145ab7ed4f48f29d2638565511d94e'
