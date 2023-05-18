@@ -11,6 +11,23 @@ import coinbaseModule from '@web3-onboard/coinbase'
 import trustModule from '@web3-onboard/trust'
 import { toast, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
+import { Web3Modal } from '@web3modal/react'
+import {  configureChains, createConfig, WagmiConfig } from 'wagmi'
+import { bsc, sepolia, mainnet } from 'wagmi/chains'
+
+const chains = [bsc, sepolia, mainnet]
+const projectId = 'a9da85a71b9681b6a3ef7950d068cb4a'
+
+const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors: w3mConnectors({ projectId, version: 1, chains }),
+  publicClient
+})
+const ethereumClient = new EthereumClient(wagmiConfig, chains)
+
 toast.configure()
 const App = () => {
 
@@ -76,7 +93,7 @@ const App = () => {
 
   return (
     <>
-       <Web3OnboardProvider web3Onboard={web3Onboard}>  
+       <WagmiConfig config={wagmiConfig}>
         <div className="relative sm:-8 p-8 bg-primary-black min-h-screen overflow-hidden ">
           <div className="sm:flex hidden mr-10 relative">
             <Sidebar />
@@ -97,8 +114,8 @@ const App = () => {
           </div>
 
         </div>
-
-        </Web3OnboardProvider>
+        </WagmiConfig>
+      <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
     </>
 
   )
