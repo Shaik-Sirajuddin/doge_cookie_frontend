@@ -1,7 +1,8 @@
-export const bnbUsdAddress = "0x4D5C32A6BFDfd2932d491ECac7A4aEF796744168"
+export const bnbUsdAddress = "0x55d398326f99059fF775485246999027B3197955"
 export const ethUsdAddress = "0x4D5C32A6BFDfd2932d491ECac7A4aEF796744168"
-export const dckAddress = "0x7A88e240E28D5d2FdfA4d9accBa29F49D11376aa"
-export const bnbPresaleAddress = "0x9Ce4adcA534D145548b19d3172549FE2F8dA4036"
+export const ethDckAddress = "0x7A88e240E28D5d2FdfA4d9accBa29F49D11376aa"
+export const bnbDckAddress = "0x21D5AF064600f06F45B05A68FddC2464A5dDaF87"
+export const bnbPresaleAddress = "0xfd152B0f29bEf9B9727E43c8F756704F96e018fE"
 export const ethPresaleAddress = "0x9ce4adca534d145548b19d3172549fe2f8da4036"
 
 export const presaleAbi = [

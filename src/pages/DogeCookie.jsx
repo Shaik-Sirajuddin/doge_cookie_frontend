@@ -7,19 +7,15 @@ import {
   ethPresaleAddress,
   ethUsdAddress,
   presaleAbi,
-  presaleAddress,
   tokenAbi,
 } from "../integration/constants";
-import { ethers, parseEther, toBigInt } from "ethers";
+import { parseEther } from "ethers";
 import Web3 from "web3";
-import { useConnectWallet } from "@web3-onboard/react";
 import { toast } from "react-toastify";
-import { Web3Button, useWeb3Modal } from "@web3modal/react";
-import { useWalletClient, useWatchPendingTransactions } from "wagmi";
+import { Web3Button } from "@web3modal/react";
+import { useWalletClient } from "wagmi";
 import { useAccount } from "wagmi";
 import { useChainId } from "wagmi";
-import { useContractWrite } from "wagmi";
-import { usePrepareContractWrite } from "wagmi";
 import { useWaitForTransaction } from "wagmi";
 const styles = {
   container: {
