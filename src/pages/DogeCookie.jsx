@@ -9,15 +9,20 @@ import {
   presaleAbi,
   tokenAbi,
 } from "../integration/constants";
+import { Button, Modal, Form } from "react-bootstrap";
 import { parseEther } from "ethers";
 import Web3 from "web3";
 import { toast } from "react-toastify";
-import { Web3Button , Web3NetworkSwitch} from "@web3modal/react";
+import { Web3Button, Web3NetworkSwitch } from "@web3modal/react";
 import { useNetwork, useWalletClient } from "wagmi";
 import { useAccount } from "wagmi";
-import { useSwitchNetwork } from 'wagmi'
+import { useSwitchNetwork } from "wagmi";
 import { useChainId } from "wagmi";
 import { useWaitForTransaction } from "wagmi";
+import "./Presale.css";
+import { Col, Container, Row } from "react-bootstrap";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 const styles = {
   container: {
     display: "flex",
@@ -55,7 +60,7 @@ function DogeCookie() {
   const [ethAmount, setEthAmount] = useState("");
   const [usdtAmount, setUsdtAmount] = useState("");
   const [referralCode, setReferralCode] = useState("");
-  const [buyingMethod, setBuyingMethod] = useState("ethereum");
+  const [buyingMethod, setBuyingMethod] = useState("");
   const [loading, setLoading] = useState(false);
   const [notifyText, setNotifyText] = useState("Sending transaction");
   const [contractAddress, setContractAddress] = useState(bnbPresaleAddress);
@@ -65,9 +70,15 @@ function DogeCookie() {
   const [approveTransactionHash, setApproveTransactionHash] = useState("");
   const [buyUsdtTransactionHash, setBuyUsdtTransactionHash] = useState("");
   const [buyNativeTransactionHash, setBuyNativeTransactionHash] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [tokensPerUsdt, setTokensPerUsdt] = useState(1000);
+  const [expectedTokens, setExpectedTokens] = useState(0);
   const [usdtData, setUsdtData] = useState({
     value: "",
   });
+  const [ethPrice, setEthPrice] = useState(0);
+  const [bnbPrice, setBnbPrice] = useState(0);
+
   // const { } = useWeb3Modal()
   /**
    * Transaction Types :
@@ -85,10 +96,9 @@ function DogeCookie() {
    */
   let chainId = useChainId();
   const { data } = useWalletClient();
-  const { chain } = useNetwork()
   const { chains, error, isLoading, pendingChainId, switchNetwork } =
-    useSwitchNetwork()
-  const { address, isConnected  } = useAccount();
+    useSwitchNetwork();
+  const { address, isConnected } = useAccount();
 
   const {
     isLoading: approveIsLoading,
@@ -316,11 +326,73 @@ function DogeCookie() {
       console.log(err);
     }
   };
+  const updatePriceFromApi = async () => {
+    let result = await fetch(
+      "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT"
+    );
+    result = await result.json();
+    let price = Number(result.price);
+    setEthPrice(price);
+
+    result = await fetch(
+      "https://api.binance.com/api/v3/ticker/price?symbol=BNBUSDT"
+    );
+    result = await result.json();
+    price = Number(result.price);
+    setBnbPrice(price);
+  };
+  useEffect(() => {
+    updatePriceFromApi();
+  }, []);
+  useEffect(() => {
+    if (!isLoading && error == null && buyingMethod !== "") {
+      handleBuyingMethodChange(buyingMethod);
+    }
+    console.log(error);
+  }, [isLoading]);
 
   const handleBuyingMethodChange = (method) => {
     setBuyingMethod(method);
+    if (method === "eth" || method === "erc20") {
+      if (chainId !== 1) {
+        toast.info("Wrong Network Detected! Switch your network first");
+        switchNetwork(1);
+      } else {
+        handleModalOpen();
+      }
+    } else {
+      if (chainId !== 56) {
+        toast.info("Wrong Network Detected! Switch your network first");
+        switchNetwork(56);
+      } else {
+        handleModalOpen();
+      }
+    }
   };
 
+  const handleModalOpen = () => {
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    if (buyingMethod === "eth" || buyingMethod === "bnb") {
+      if (buyingMethod === "eth") {
+        let tokens = ethPrice * ethAmount * tokensPerUsdt;
+        setExpectedTokens(tokens);
+      } else {
+        let tokens = bnbPrice * ethAmount * tokensPerUsdt;
+        setExpectedTokens(tokens);
+      }
+    } else {
+      let tokens = usdtAmount * tokensPerUsdt;
+      setExpectedTokens(tokens);
+    }
+    console.log(expectedTokens);
+  }, [usdtAmount, ethAmount, buyingMethod]);
   return (
     <div style={styles.container}>
       <h1
@@ -333,72 +405,131 @@ function DogeCookie() {
         Doge Cookie Presale
       </h1>
 
-      <Web3Button />
+      <Web3Button
+        icon="hide"
+        style={{
+          transform: "scale(1.3)",
+          marginTop: "10px",
+        }}
+      />
+      <Row
+        style={{
+          display: "flex",
+        }}
+      >
+        <Col>
+          <button
+            class="buy-button"
+            onClick={() => handleBuyingMethodChange("eth")}
+          >
+            Buy With Eth
+          </button>
+        </Col>
 
-      
-      <div style={styles.radioContainer}>
-        <label style={styles.label}>
-          <input
-            type="radio"
-            value="ethereum"
-            checked={buyingMethod === "ethereum"}
-            onChange={() => handleBuyingMethodChange("ethereum")}
-          />
-          Buy with Ethereum
-        </label>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <label style={styles.label}>
-          <input
-            type="radio"
-            value="usdt"
-            checked={buyingMethod === "usdt"}
-            onChange={() => handleBuyingMethodChange("usdt")}
-          />
-          Buy with USDT
-        </label>
-      </div>
+        <Col>
+          <button
+            class="buy-button"
+            onClick={() => handleBuyingMethodChange("erc20")}
+          >
+            Buy Now USDT (ERC20){" "}
+          </button>
+        </Col>
+      </Row>
+      <Row
+        style={{
+          display: "flex",
+        }}
+      >
+        <Col>
+          <button
+            class="buy-button"
+            onClick={() => handleBuyingMethodChange("bnb")}
+          >
+            Buy With BNB
+          </button>
+        </Col>
+        <Col>
+          <button
+            class="buy-button"
+            onClick={() => handleBuyingMethodChange("bep20")}
+          >
+            Buy Now USDT (BEP20){" "}
+          </button>
+        </Col>
+      </Row>
 
-      {buyingMethod === "ethereum" ? (
-        <div style={styles.inputContainer}>
-          <label style={styles.label}>
-            Ethereum Amount:
-            <input
-              style={styles.input}
-              type="number"
-              step={"any"}
-              value={ethAmount}
-              onChange={handleEthAmountChange}
-            />
-          </label>
-        </div>
+      {isConnected ? (
+        <div></div>
       ) : (
-        <div style={styles.inputContainer}>
-          <label style={styles.label}>
-            USDT Amount:
-            <input
-              style={styles.input}
-              type="number"
-              step={"any"}
-              value={usdtAmount}
-              onChange={handleUsdtAmountChange}
-            />
-          </label>
-        </div>
+        <div
+          style={{
+            height: "100px",
+          }}
+        ></div>
       )}
-      <div style={styles.inputContainer}>
-        <label style={styles.label}>
-          Referral Code:
-          <input
-            style={styles.input}
-            type="text"
-            value={referralCode}
-            onChange={handleReferralCodeChange}
-          />
-        </label>
-      </div>
-      <button style={styles.button} onClick={handleBuyToken}>
-        Buy
-      </button>
+
+      <Popup
+        open={showModal}
+        onClose={() => {
+          handleModalClose();
+        }}
+      >
+        <div>
+          {buyingMethod === "eth" || buyingMethod === "bnb" ? (
+            <div style={styles.inputContainer}>
+              <label style={styles.label}>
+                {buyingMethod === "eth" ? "Eth" : "Bnb"} Amount:
+                <input
+                  style={styles.input}
+                  type="number"
+                  step={"any"}
+                  value={ethAmount}
+                  onChange={handleEthAmountChange}
+                />
+              </label>
+            </div>
+          ) : (
+            <div style={styles.inputContainer}>
+              <label style={styles.label}>
+                USDT{buyingMethod === "erc20" ? " (ERC20)" : " (BEP20)"} &nbsp;
+                Amount:
+                <input
+                  style={styles.input}
+                  type="number"
+                  step={"any"}
+                  value={usdtAmount}
+                  onChange={handleUsdtAmountChange}
+                />
+              </label>
+            </div>
+          )}
+          <div style={styles.inputContainer}>
+            <label style={styles.label}>
+              Expected Token:
+              <input
+                style={styles.input}
+                readOnly={true}
+                type="text"
+                value={expectedTokens}
+              />
+            </label>
+          </div>
+          <div style={styles.inputContainer}>
+            <label style={styles.label}>
+              Referral Code:
+              <input
+                style={styles.input}
+                type="text"
+                value={referralCode}
+                onChange={handleReferralCodeChange}
+              />
+            </label>
+          </div>
+          <button style={styles.button} onClick={handleBuyToken}>
+            Buy
+          </button>
+        </div>
+      </Popup>
     </div>
   );
 }

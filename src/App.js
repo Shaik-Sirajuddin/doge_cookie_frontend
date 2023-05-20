@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
-import {  configureChains, createConfig, WagmiConfig } from 'wagmi'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { bsc, sepolia, mainnet } from 'wagmi/chains'
 
 const chains = [bsc, sepolia, mainnet]
@@ -93,7 +93,7 @@ const App = () => {
 
   return (
     <>
-       <WagmiConfig config={wagmiConfig}>
+      <WagmiConfig config={wagmiConfig}>
         <div className="relative sm:-8 p-8 bg-primary-black min-h-screen overflow-hidden ">
           <div className="sm:flex hidden mr-10 relative">
             <Sidebar />
@@ -114,7 +114,7 @@ const App = () => {
           </div>
 
         </div>
-        </WagmiConfig>
+      </WagmiConfig>
       <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
     </>
 
