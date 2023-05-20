@@ -1,11 +1,11 @@
+/** @format */
+
 const Staking = () => {
-
   return (
-     <section>
+    <section>
       <div>staking section</div>
+    </section>
+  );
+};
 
-  </section>
-
-  )}
-
-export default Staking
+export default Staking;

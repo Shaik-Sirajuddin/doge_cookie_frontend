@@ -12,9 +12,10 @@ import {
 import { parseEther } from "ethers";
 import Web3 from "web3";
 import { toast } from "react-toastify";
-import { Web3Button } from "@web3modal/react";
-import { useWalletClient } from "wagmi";
+import { Web3Button , Web3NetworkSwitch} from "@web3modal/react";
+import { useNetwork, useWalletClient } from "wagmi";
 import { useAccount } from "wagmi";
+import { useSwitchNetwork } from 'wagmi'
 import { useChainId } from "wagmi";
 import { useWaitForTransaction } from "wagmi";
 const styles = {
@@ -23,6 +24,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     padding: "20px",
+    gap: "10px",
   },
   radioContainer: {
     marginBottom: "20px",
@@ -66,6 +68,7 @@ function DogeCookie() {
   const [usdtData, setUsdtData] = useState({
     value: "",
   });
+  // const { } = useWeb3Modal()
   /**
    * Transaction Types :
    *
@@ -82,8 +85,10 @@ function DogeCookie() {
    */
   let chainId = useChainId();
   const { data } = useWalletClient();
-
-  const { address, isConnected } = useAccount();
+  const { chain } = useNetwork()
+  const { chains, error, isLoading, pendingChainId, switchNetwork } =
+    useSwitchNetwork()
+  const { address, isConnected  } = useAccount();
 
   const {
     isLoading: approveIsLoading,
@@ -318,8 +323,19 @@ function DogeCookie() {
 
   return (
     <div style={styles.container}>
+      <h1
+        style={{
+          fontSize: "50px",
+          color: "white",
+          fontWeight: "bold",
+        }}
+      >
+        Doge Cookie Presale
+      </h1>
+
       <Web3Button />
-      <h1>Token Purchase Page</h1>
+
+      
       <div style={styles.radioContainer}>
         <label style={styles.label}>
           <input
