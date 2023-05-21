@@ -2,14 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import {
+  bnbDckAddress,
   bnbPresaleAddress,
   bnbUsdAddress,
+  ethDckAddress,
   ethPresaleAddress,
   ethUsdAddress,
   presaleAbi,
   tokenAbi,
 } from "../integration/constants";
-import { Button, Modal, Form } from "react-bootstrap";
 import { parseEther } from "ethers";
 import Web3 from "web3";
 import { toast } from "react-toastify";
@@ -23,6 +24,8 @@ import "./Presale.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import { readContract } from "@wagmi/core";
+import { MoonLoader } from "react-spinners";
 const styles = {
   container: {
     display: "flex",
@@ -39,12 +42,19 @@ const styles = {
   },
   label: {
     marginBottom: "10px",
+    fontSize: "20px",
+    fontWeight: "bold",
+    width: "250px",
+    display: "inline-block",
   },
   input: {
-    padding: "8px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-    width: "200px",
+    width: "100%",
+    padding: "10px 15px",
+    color: "#000",
+    fontSize: "18px",
+    fontWeight: "bold",
+    borderRadius: "5px",
+    background: "#efefef",
   },
   button: {
     padding: "10px 20px",
@@ -53,6 +63,10 @@ const styles = {
     color: "#fff",
     border: "none",
     cursor: "pointer",
+  },
+  span: {
+    fontSize: "20px",
+    fontWeight: "bold",
   },
 };
 
@@ -63,21 +77,18 @@ function DogeCookie() {
   const [buyingMethod, setBuyingMethod] = useState("");
   const [loading, setLoading] = useState(false);
   const [notifyText, setNotifyText] = useState("Sending transaction");
-  const [contractAddress, setContractAddress] = useState(bnbPresaleAddress);
-  const [currentAbi, setAbi] = useState(presaleAbi);
-  const [functionName, setFunctionName] = useState("buyWithNativeToken");
-  const [transactionType, setTransactionType] = useState(3);
   const [approveTransactionHash, setApproveTransactionHash] = useState("");
   const [buyUsdtTransactionHash, setBuyUsdtTransactionHash] = useState("");
   const [buyNativeTransactionHash, setBuyNativeTransactionHash] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [tokensPerUsdt, setTokensPerUsdt] = useState(1000);
+  const [tokensPerUsdt, setTokensPerUsdt] = useState(10000);
   const [expectedTokens, setExpectedTokens] = useState(0);
   const [usdtData, setUsdtData] = useState({
     value: "",
   });
   const [ethPrice, setEthPrice] = useState(0);
   const [bnbPrice, setBnbPrice] = useState(0);
+  const [dckBalance, setDckBalance] = useState(0);
 
   // const { } = useWeb3Modal()
   /**
@@ -96,8 +107,7 @@ function DogeCookie() {
    */
   let chainId = useChainId();
   const { data } = useWalletClient();
-  const { chains, error, isLoading, pendingChainId, switchNetwork } =
-    useSwitchNetwork();
+  const { error, isLoading, switchNetwork } = useSwitchNetwork();
   const { address, isConnected } = useAccount();
 
   const {
@@ -139,12 +149,18 @@ function DogeCookie() {
       buyWithUsdt();
     }
     if (approveIsError) {
+      setLoading(false);
       toast.error("Something went wrong");
     }
   }, [approveIsLoading, approveIsSuccess, approveIsError]);
 
   useEffect(() => {
-    console.log(buyNativeIsLoading, buyNativeIsSuccess, buyNativeIsError);
+    console.log(
+      "Native Buy",
+      buyNativeIsLoading,
+      buyNativeIsSuccess,
+      buyNativeIsError
+    );
     if (buyNativeIsLoading) {
       setLoading(true);
       toast.success("Transaction sent");
@@ -153,10 +169,37 @@ function DogeCookie() {
       setLoading(false);
       toast.success("Transaction successful");
     }
+    if (buyNativeIsError) {
+      setLoading(false);
+      toast.error("Transaction failed!");
+    }
   }, [buyNativeIsLoading, buyNativeIsSuccess, buyNativeIsError]);
-
+  const getBalance = async () => {
+    let dckAddress;
+    if (chainId === 56) {
+      dckAddress = bnbDckAddress;
+    } else {
+      dckAddress = ethDckAddress;
+    }
+    let result = await readContract({
+      address: dckAddress,
+      abi: tokenAbi,
+      functionName: "balanceOf",
+      args: [address],
+    });
+    result = Number(result) / Math.pow(10, 9);
+    setDckBalance(result);
+  };
   useEffect(() => {
-    console.log(buyUsdtIsLoading, buyUsdtIsSuccess, buyUsdtIsError);
+    getBalance();
+  }, [isConnected, chainId]);
+  useEffect(() => {
+    console.log(
+      "USDT Buy : ",
+      buyUsdtIsLoading,
+      buyUsdtIsSuccess,
+      buyUsdtIsError
+    );
     if (buyUsdtIsLoading) {
       setLoading(true);
       toast.success("Transaction sent");
@@ -164,6 +207,10 @@ function DogeCookie() {
     if (buyUsdtIsSuccess) {
       setLoading(false);
       toast.success("Transaction successful");
+    }
+    if (buyUsdtIsError) {
+      setLoading(false);
+      toast.error("Transaction failed!");
     }
   }, [buyUsdtIsLoading, buyUsdtIsSuccess, buyUsdtIsError]);
 
@@ -194,7 +241,7 @@ function DogeCookie() {
         setLoading(false);
         return;
       }
-      if (buyingMethod === "usdt") {
+      if (buyingMethod === "erc20" || buyingMethod === "bep20") {
         let value = parseInt(usdtAmount);
         if (chainId === 56) {
           value = value * Math.pow(10, 18);
@@ -216,6 +263,12 @@ function DogeCookie() {
   };
   const sendApproveTransaction = async (value, chainId) => {
     try {
+      let presaleContract;
+      if (chainId === 56) {
+        presaleContract = bnbPresaleAddress;
+      } else {
+        presaleContract = ethPresaleAddress;
+      }
       setLoading(true);
       setNotifyText("Sending Approve Transactoin");
       if (chainId === 56) {
@@ -223,7 +276,7 @@ function DogeCookie() {
           abi: tokenAbi,
           address: bnbUsdAddress,
           functionName: "approve",
-          args: [contractAddress, value.toString()],
+          args: [presaleContract, value.toString()],
           from: address,
         });
         console.log(result);
@@ -233,7 +286,7 @@ function DogeCookie() {
           abi: tokenAbi,
           address: ethUsdAddress,
           functionName: "approve",
-          args: [contractAddress, value.toString()],
+          args: [presaleContract, value.toString()],
           from: address,
         });
         console.log(result);
@@ -252,7 +305,7 @@ function DogeCookie() {
   const buyWithUsdt = async () => {
     try {
       setLoading(true);
-      setNotifyText("Sending Buy Transactoin");
+      setNotifyText("Sending Buy Transaction");
       let value = usdtData.value;
       if (chainId === 56) {
         let result = await data.writeContract({
@@ -290,14 +343,11 @@ function DogeCookie() {
       } else {
         presaleContract = ethPresaleAddress;
       }
-      setContractAddress(presaleContract);
-      setAbi(presaleAbi);
-      setFunctionName("buyWithNativeToken");
 
       setNotifyText("Sending Buy Transaction");
       let ethersToWei = Web3.utils.toWei(ethAmount, "ether");
       if (chainId === 56) {
-        let result = data.writeContract({
+        let result = await data.writeContract({
           abi: presaleAbi,
           address: bnbPresaleAddress,
           functionName: "buyWithNativeToken",
@@ -344,6 +394,7 @@ function DogeCookie() {
   useEffect(() => {
     updatePriceFromApi();
   }, []);
+
   useEffect(() => {
     if (!isLoading && error == null && buyingMethod !== "") {
       handleBuyingMethodChange(buyingMethod);
@@ -354,9 +405,9 @@ function DogeCookie() {
   const handleBuyingMethodChange = (method) => {
     setBuyingMethod(method);
     if (method === "eth" || method === "erc20") {
-      if (chainId !== 1) {
+      if (chainId !== 11155111) {
         toast.info("Wrong Network Detected! Switch your network first");
-        switchNetwork(1);
+        switchNetwork(11155111);
       } else {
         handleModalOpen();
       }
@@ -409,57 +460,86 @@ function DogeCookie() {
         icon="hide"
         style={{
           transform: "scale(1.3)",
-          marginTop: "10px",
+          marginTop: "20px",
         }}
       />
-      <Row
-        style={{
-          display: "flex",
-        }}
-      >
-        <Col>
-          <button
-            class="buy-button"
-            onClick={() => handleBuyingMethodChange("eth")}
-          >
-            Buy With Eth
-          </button>
-        </Col>
-
-        <Col>
-          <button
-            class="buy-button"
-            onClick={() => handleBuyingMethodChange("erc20")}
-          >
-            Buy Now USDT (ERC20){" "}
-          </button>
-        </Col>
-      </Row>
-      <Row
-        style={{
-          display: "flex",
-        }}
-      >
-        <Col>
-          <button
-            class="buy-button"
-            onClick={() => handleBuyingMethodChange("bnb")}
-          >
-            Buy With BNB
-          </button>
-        </Col>
-        <Col>
-          <button
-            class="buy-button"
-            onClick={() => handleBuyingMethodChange("bep20")}
-          >
-            Buy Now USDT (BEP20){" "}
-          </button>
-        </Col>
-      </Row>
 
       {isConnected ? (
-        <div></div>
+        <div
+          style={{
+            background: "white",
+            borderRadius: "20px",
+            padding: "20px 40px",
+            margin: "40px 20px",
+            border: "2px solid grey",
+            boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              margin: "20px",
+            }}
+          >
+            <div
+              style={{
+                color: "black",
+                fontSize: "22px",
+                fontWeight: "bold",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              You have {dckBalance} $Dck
+            </div>
+          </div>
+
+          <Row
+            style={{
+              display: "flex",
+            }}
+          >
+            <Col>
+              <button
+                class="buy-button"
+                onClick={() => handleBuyingMethodChange("eth")}
+              >
+                Buy With Eth
+              </button>
+            </Col>
+
+            <Col>
+              <button
+                class="buy-button"
+                onClick={() => handleBuyingMethodChange("erc20")}
+              >
+                Buy Now USDT (ERC20){" "}
+              </button>
+            </Col>
+          </Row>
+          <Row
+            style={{
+              display: "flex",
+            }}
+          >
+            <Col>
+              <button
+                class="buy-button"
+                onClick={() => handleBuyingMethodChange("bnb")}
+              >
+                Buy With BNB
+              </button>
+            </Col>
+            <Col>
+              <button
+                class="buy-button"
+                onClick={() => handleBuyingMethodChange("bep20")}
+              >
+                Buy Now USDT (BEP20){" "}
+              </button>
+            </Col>
+          </Row>
+        </div>
       ) : (
         <div
           style={{
@@ -473,62 +553,106 @@ function DogeCookie() {
         onClose={() => {
           handleModalClose();
         }}
+        contentStyle={{
+          padding: "70px 50px",
+          border: "1px solid #25618B",
+          borderRadius: "10px",
+          minWidth: "300px",
+          maxWidth: "550px",
+        }}
+        modal
+        nested
       >
-        <div>
-          {buyingMethod === "eth" || buyingMethod === "bnb" ? (
-            <div style={styles.inputContainer}>
-              <label style={styles.label}>
-                {buyingMethod === "eth" ? "Eth" : "Bnb"} Amount:
+        {loading ? (
+          <>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              <MoonLoader
+                cssOverride={{
+                  display: "block",
+                  margin: "0 auto",
+                  borderColor: "red",
+                }}
+                size={100}
+                color={"#123abc"}
+                loading={true}
+              />
+              <div
+                style={{
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                }}
+              >
+                {notifyText}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div>
+            {buyingMethod === "eth" || buyingMethod === "bnb" ? (
+              <div style={styles.inputContainer}>
+                <label style={styles.label}>
+                  {buyingMethod === "eth" ? "Eth" : "Bnb"} Amount:
+                </label>
                 <input
                   style={styles.input}
                   type="number"
                   step={"any"}
+                  min={0}
                   value={ethAmount}
                   onChange={handleEthAmountChange}
                 />
-              </label>
-            </div>
-          ) : (
-            <div style={styles.inputContainer}>
-              <label style={styles.label}>
-                USDT{buyingMethod === "erc20" ? " (ERC20)" : " (BEP20)"} &nbsp;
-                Amount:
+              </div>
+            ) : (
+              <div style={styles.inputContainer}>
+                <label style={styles.label}>
+                  USDT Amount
+                  {buyingMethod === "erc20" ? " (ERC20)" : " (BEP20)"} &nbsp;
+                </label>
                 <input
                   style={styles.input}
                   type="number"
+                  min={0}
                   step={"any"}
                   value={usdtAmount}
                   onChange={handleUsdtAmountChange}
                 />
-              </label>
-            </div>
-          )}
-          <div style={styles.inputContainer}>
-            <label style={styles.label}>
-              Expected Token:
+              </div>
+            )}
+            <div style={styles.inputContainer}>
+              <label style={styles.label}>$DCK Token </label>
               <input
                 style={styles.input}
                 readOnly={true}
                 type="text"
+                min={0}
                 value={expectedTokens}
               />
-            </label>
-          </div>
-          <div style={styles.inputContainer}>
-            <label style={styles.label}>
-              Referral Code:
+            </div>
+            <div style={styles.inputContainer}>
+              <label style={styles.label}>Referral Code (Optional)</label>
               <input
                 style={styles.input}
                 type="text"
                 value={referralCode}
                 onChange={handleReferralCodeChange}
               />
-            </label>
+            </div>
+            <div className="button-container">
+              <br />
+              <button className="main-buy-button" onClick={handleBuyToken}>
+                Buy
+              </button>
+            </div>
           </div>
-          <button style={styles.button} onClick={handleBuyToken}>
-            Buy
-          </button>
-        </div>
+        )}
       </Popup>
     </div>
   );
