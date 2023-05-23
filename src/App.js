@@ -16,6 +16,10 @@ import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { bsc, sepolia, mainnet } from 'wagmi/chains'
+import Signup from './components/Authentication/Signup';
+import Signin from './components/Authentication/Signin';
+import ForgotPassword from './components/Authentication/ForgotPassword';
+
 
 const chains = [bsc, sepolia, mainnet]
 const projectId = 'a9da85a71b9681b6a3ef7950d068cb4a'
@@ -107,12 +111,12 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/presale" element={<DogeCookie />} />
               <Route path="/staking" element={<Staking />} />
+              <Route path="/signup" element={<Signup />}/>
+              <Route path="/signin" element={<Signin />}/>
+              <Route path="/forgot-password" element={<ForgotPassword/>}/>
             </Routes>
-
-
             <Footer />
           </div>
-
         </div>
       </WagmiConfig>
       <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
