@@ -115,7 +115,7 @@ const App = () => {
               <Route path="/presale" element={<DogeCookie />} />
               <Route path="/staking" element={<Staking />} />
               <Route path="/signup" element={<Signup />}/>
-              <Route path="/signin" element={<Signin />}/>
+              <Route path="/login" element={<Signin />}/>
               <Route path="/forgot-password" element={<ForgotPassword/>}/>
               <Route path="/reset-password" element={<ResetPassword/>}/>
 
