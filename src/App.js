@@ -19,6 +19,8 @@ import { bsc, sepolia, mainnet } from 'wagmi/chains'
 import Signup from './components/Authentication/Signup';
 import Signin from './components/Authentication/Signin';
 import ForgotPassword from './components/Authentication/ForgotPassword';
+import ResetPassword from './components/Authentication/ResetPassword';
+import { useParams } from 'react-router-dom';
 
 
 const chains = [bsc, sepolia, mainnet]
@@ -34,6 +36,7 @@ const ethereumClient = new EthereumClient(wagmiConfig, chains)
 
 toast.configure()
 const App = () => {
+  const {token} = useParams();
 
   const INFURA_KEY = '30145ab7ed4f48f29d2638565511d94e'
 
@@ -114,6 +117,8 @@ const App = () => {
               <Route path="/signup" element={<Signup />}/>
               <Route path="/signin" element={<Signin />}/>
               <Route path="/forgot-password" element={<ForgotPassword/>}/>
+              <Route path="/reset-password" element={<ResetPassword/>}/>
+
             </Routes>
             <Footer />
           </div>

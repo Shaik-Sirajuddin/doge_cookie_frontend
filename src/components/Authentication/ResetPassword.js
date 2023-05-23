@@ -1,23 +1,26 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import {useParams} from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const Signin = () => {
-     const {token} = useParams();
+const ResetPassword = () => {
+  const { token } = useParams();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm();
 
   const onSubmit = (data) => {
+    const { email, password } = data;
+
     axios
       .post('http://160.238.36.138/reset-password', {
-        email: data.email,
-        password: data.password,
-        token: token,
+        email,
+        password,
+        token,
       })
       .then(function (response) {
         console.log(response);
@@ -27,6 +30,8 @@ const Signin = () => {
         console.log(error);
       });
   };
+
+  const watchPassword = watch('password', '');
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-cover bg-center bg-gradient-to-r from-blue-500 to-purple-500">
@@ -64,21 +69,25 @@ const Signin = () => {
               <p className="text-xs italic text-red-500">{errors.password.message}</p>
             )}
           </div>
+
           <div className="flex flex-col">
-            <label htmlFor="password" className="text-gray-800 font-bold mb-2">
-            Confirm New Password
+            <label htmlFor="confirmPassword" className="text-gray-800 font-bold mb-2">
+              Confirm New Password
             </label>
             <input
-              type="cpassword"
-              {...register('cpassword', {
-                required: 'Confirm Password is required and must match the New Password',
+              type="password"
+              {...register('confirmPassword', {
+                required: 'Confirm Password is required',
+                validate: (value) =>
+                  value === watchPassword || 'Passwords do not match',
               })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             />
-            {errors.cpassword && (
-              <p className="text-xs italic text-red-500">{errors.cpassword.message}</p>
+            {errors.confirmPassword && (
+              <p className="text-xs italic text-red-500">{errors.confirmPassword.message}</p>
             )}
           </div>
+
           <div>
             <button
               type="submit"
@@ -86,11 +95,11 @@ const Signin = () => {
             >
               Submit
             </button>
-          </div> 
+          </div>
         </form>
       </div>
     </div>
   );
 };
 
-export default Signin;
+export default ResetPassword;
