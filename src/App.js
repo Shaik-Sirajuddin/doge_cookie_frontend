@@ -11,7 +11,7 @@ import coinbaseModule from '@web3-onboard/coinbase'
 import trustModule from '@web3-onboard/trust'
 import { toast, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import 'bootstrap/dist/css/bootstrap.css';
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'

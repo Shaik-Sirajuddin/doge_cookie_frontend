@@ -1,10 +1,11 @@
-import { About, Explore, Feedback, Hero, Insights, WhatsNew, World } from '../sections';
+import { About, Explore, Feedback, Hero, Insights, WhatsNew, World , AuditSpace } from '../sections';
 
 
 const Home = () => {
     return (
         <div>
         <Hero className='m-0' />
+      <AuditSpace />
       <About />
       <div className="gradient-03 z-0" />
       <Explore />
