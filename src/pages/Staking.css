@@ -1,0 +1,125 @@
+/** @format */
+
+.staking-page {
+  font-family: Arial, sans-serif;
+  margin: 2rem auto;
+  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 2rem;
+  border: 1px solid #140808;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-top: 0;
+}
+.staking-plans select {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  appearance: none;
+  border: none;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.staking-plans select:hover {
+  background-color: #e0e0e0;
+}
+
+.staking-plans select:focus {
+  outline: none;
+  background-color: #e0e0e0;
+}
+
+.staking-plans select option {
+  font-size: 1rem;
+  color: #333;
+}
+
+.staking-amount input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stake-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.stake-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.current-stakings ul {
+  list-style: none;
+  padding: 0;
+}
+
+.current-stakings li {
+  margin-bottom: 0.5rem;
+}
+
+.current-stakings button {
+  background-color: #f44336;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.staking-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.staking-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.staking-form {
+  flex-basis: 50%;
+  margin-right: 2rem;
+}
+
+.current-stakings {
+  flex-basis: 50%;
+  margin-top: 2rem;
+}
+
+.current-stakings ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.current-stakings li {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .staking-container {
+    flex-wrap: wrap;
+  }
+      .staking-form,
+  .current-stakings {
+    flex-basis: 100%;
+  }
+}

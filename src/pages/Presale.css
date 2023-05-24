@@ -60,3 +60,15 @@ input {
   justify-content: center;
   align-items: center;
 }
+.button-holder {
+  display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+  .button-holder {
+    display: block;
+  }
+  .buy-button {
+    width: 100%;
+  }
+}

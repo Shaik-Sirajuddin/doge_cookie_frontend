@@ -124,6 +124,7 @@ function DogeCookie() {
   } = useWaitForTransaction({
     hash: buyUsdtTransactionHash,
   });
+  
   const {
     isLoading: buyNativeIsLoading,
     isSuccess: buyNativeIsSuccess,
@@ -494,11 +495,7 @@ function DogeCookie() {
             </div>
           </div>
 
-          <Row
-            style={{
-              display: "flex",
-            }}
-          >
+          <div className="button-holder">
             <Col>
               <button
                 class="buy-button"
@@ -516,12 +513,8 @@ function DogeCookie() {
                 Buy Now USDT (ERC20){" "}
               </button>
             </Col>
-          </Row>
-          <Row
-            style={{
-              display: "flex",
-            }}
-          >
+          </div>
+          <div className="button-holder">
             <Col>
               <button
                 class="buy-button"
@@ -538,7 +531,7 @@ function DogeCookie() {
                 Buy Now USDT (BEP20){" "}
               </button>
             </Col>
-          </Row>
+          </div>
         </div>
       ) : (
         <div
