@@ -4,7 +4,10 @@ export const ethDckAddress = "0x7A88e240E28D5d2FdfA4d9accBa29F49D11376aa"
 export const bnbDckAddress = "0x21D5AF064600f06F45B05A68FddC2464A5dDaF87"
 export const bnbPresaleAddress = "0xfd152B0f29bEf9B9727E43c8F756704F96e018fE"
 export const ethPresaleAddress = "0x9ce4adca534d145548b19d3172549fe2f8da4036"
-export const ethStakingAddres = "0xA0E690022CE31b5e84c20a964650914D1A32d923"
+export const ethStakingAddress = "0x68CB7F8b290D7b8De512113bC64a84a38966f132"
+export const bnbStakingAddress = "0x68CB7F8b290D7b8De512113bC64a84a38966f132"
+export const bnbChainId = 56
+export const ethChainId = 11155111
 export const presaleAbi = [
 	{
 		"inputs": [
@@ -817,6 +820,25 @@ export const stakingAbi = [
 	{
 		"inputs": [],
 		"name": "totalStaked",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "totalStakings",
 		"outputs": [
 			{
 				"internalType": "uint256",

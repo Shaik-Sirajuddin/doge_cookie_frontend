@@ -63,6 +63,10 @@ h2 {
   background-color: #ccc;
   cursor: not-allowed;
 }
+.withdraw:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
 
 .current-stakings ul {
   list-style: none;
@@ -104,7 +108,6 @@ h2 {
   flex-basis: 50%;
   margin-top: 2rem;
 }
-
 .current-stakings ul {
   list-style-type: none;
   padding: 0;
@@ -112,13 +115,46 @@ h2 {
 
 .current-stakings li {
   margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.staking-details {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.staking-details .amount {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.amount,
+.unlock-time {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.value {
+  margin-left: 0.5rem;
+}
+
+.withdraw {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
   .staking-container {
     flex-wrap: wrap;
   }
-      .staking-form,
+  .staking-form,
   .current-stakings {
     flex-basis: 100%;
   }
