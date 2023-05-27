@@ -7,7 +7,7 @@ import World from './World';
 import Insights from './Insights';
 import Feedback from './Feedback';
 import { AuditSpace } from './AuditSpace';
-
+import ComingSoon from './ComingSoon';
 export {
   Hero,
   About,
@@ -17,5 +17,6 @@ export {
   World,
   Insights,
   Feedback,
-  AuditSpace
+  AuditSpace,
+  ComingSoon
 };

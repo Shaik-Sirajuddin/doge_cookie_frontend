@@ -1,4 +1,4 @@
-import { About, Explore, Feedback, Hero, Insights, WhatsNew, World, AuditSpace } from '../sections';
+import { About, Explore, Feedback, Hero, Insights, WhatsNew, World, AuditSpace , ComingSoon } from '../sections';
 import Roadmap from '../sections/Roadmap';
 
 
@@ -22,9 +22,9 @@ const Home = () => {
         <Feedback />
       </div>
       <div className="relative">
-
         <div className="gradient-04 z-0" />
         <Roadmap />
+        <ComingSoon />
       </div>
     </div>
   )
