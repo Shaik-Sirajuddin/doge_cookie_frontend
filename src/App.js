@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Navbar, Footer, Sidebar, } from './components';
-import { Home, DogeCookie, Staking } from './pages';
+import { Home, DogeCookie, Staking, ReturnsCal } from './pages';
 import './index.css';
 import { Web3OnboardProvider, init } from '@web3-onboard/react'
 import injectedModule from '@web3-onboard/injected-wallets'
@@ -114,6 +114,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/presale" element={<DogeCookie />} />
+              <Route path="/returnscal" element={<ReturnsCal />} />
               <Route path="/staking" element={<Staking />} />
               <Route path="/signup" element={<Signup />}/>
               <Route path="/login" element={<Signin />}/>
