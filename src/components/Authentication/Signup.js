@@ -13,10 +13,10 @@ const Signup = () => {
   // Form submission handler
   const onSubmit = (data) => {
     axios
-      .post('http://160.238.36.138/signup', {
+      .post('http://160.238.36.138:3000/signup', {
         email: data.email,
         password: data.password,
-        packageid: data.packageid,
+        packageId: data.packageid,
       })
       .then(function (response) {
         console.log(response);

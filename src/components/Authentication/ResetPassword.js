@@ -17,7 +17,7 @@ const ResetPassword = () => {
     const { email, password } = data;
 
     axios
-      .post('http://160.238.36.138/reset-password', {
+      .post('http://160.238.36.138:3000/reset-password', {
         email,
         password,
         token,

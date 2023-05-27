@@ -12,7 +12,7 @@ function ForgotPassword() {
     
       const onSubmit = (data) => {
         axios
-          .post('http://160.238.36.138/forgot-password', {
+          .post('http://160.238.36.138:3000/forgot-password', {
             email: data.email
           })
           .then(function (response) {
