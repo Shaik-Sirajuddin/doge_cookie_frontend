@@ -23,6 +23,7 @@ import ResetPassword from './components/Authentication/ResetPassword';
 import { useParams } from 'react-router-dom';
 
 
+
 const chains = [bsc, sepolia, mainnet]
 const projectId = 'a9da85a71b9681b6a3ef7950d068cb4a'
 

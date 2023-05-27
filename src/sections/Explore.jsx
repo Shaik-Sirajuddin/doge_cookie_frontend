@@ -10,7 +10,7 @@ const Explore = () => {
   const [active, setActive] = useState('nft-2');
 
   return (
-    <section className={`${styles.paddings} bg-red-500`} id="explore">
+    <section className={`${styles.paddings} explorebg`} id="explore">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -18,7 +18,7 @@ const Explore = () => {
         viewport={{ once: false, amount: 0.25 }}
         className={`${styles.innerWidth} mx-auto flex flex-col`}
       >
-        <TypingText title="| The Doge Cookie NFT" textStyles="text-center" />
+        <TypingText title="| The Doge Cookie NFT" textStyles="text-center text-4xl" />
         <TitleText
           title={<>Doge Cookie NFT  <br className="md:block hidden" />Marketplace</>}
           textStyles="text-center"
