@@ -16,6 +16,14 @@
 .backcolor{
   background-color: #27aae1;
 }
+.aboutbg{
+  border-radius: 5%;
+  background-color:#99eaf5;
+}
+.explorebg{
+  border-radius: 5%;
+  background-color: rgb(243, 105, 81)
+}
 
 .gradient-01 {
   background-image: linear-gradient(270deg,
