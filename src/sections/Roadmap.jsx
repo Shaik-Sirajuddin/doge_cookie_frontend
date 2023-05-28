@@ -18,7 +18,7 @@ function Roadmap() {
     ><TypingText title="| Road Map" textStyles="text-center" />
 
     <img
-      src="/images/doge-cookie.png"
+      src="/images/IMG_20230528_223728_099.jpg"
       alt="headset"
       className="img-fluid"
       style={{ width: '204px', height: '106px', objectFit: 'contain' }}
