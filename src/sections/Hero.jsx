@@ -12,7 +12,7 @@ const Hero = () => {
   //  const handleOnClose = () => setOpenConnect(false)
 return (
   <section>
-    <div className="flex justify-center items-center flex-col p-20px ">
+    <div>
       <CountdownTimer />
     </div>
     <div className="flex flex-row justify-center items-center w-full">
