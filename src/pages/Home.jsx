@@ -6,10 +6,10 @@ const Home = () => {
   return (
     <div>
       <Hero className='m-0' />
-      <AuditSpace />
-      <About />
+      <AuditSpace /><br/>
+      <About /><br/>
       <div className="gradient-03 z-0" />
-      <Explore />
+      <Explore /><br/>
       <div className="relative">
 
         <div className="gradient-04 z-0" />
@@ -19,11 +19,11 @@ const Home = () => {
       <div className="relative">
         <Insights />
         <div className="gradient-04 z-0" />
-        <Feedback />
+        <Feedback /><br/>
       </div>
       <div className="relative">
         <div className="gradient-04 z-0" />
-        <Roadmap />
+        <Roadmap /><br/>
         <ComingSoon />
       </div>
     </div>

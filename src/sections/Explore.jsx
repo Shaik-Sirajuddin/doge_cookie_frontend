@@ -10,7 +10,7 @@ const Explore = () => {
   const [active, setActive] = useState('nft-2');
 
   return (
-    <section className={`${styles.paddings} explorebg`} id="explore">
+    <section className={`${styles.paddings} explorebg border-radius`} id="explore">
       <motion.div
         variants={staggerContainer}
         initial="hidden"

@@ -1,37 +1,48 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { motion } from 'framer-motion';
+import { TypingText } from '../components';
+
+import styles from '../styles';
+import { fadeIn, staggerContainer } from '../utils/motion';
 
 function Roadmap() {
-  return (
-    <Container>
-      <Row>
-        <Col xs={12} md={3}>
-          <div className="d-flex flex-column align-items-center">
-            <p>Roadmap</p>
-            <img
-              src="/images/doge-cookie.png"
-              alt="headset"
-              className="img-fluid"
-              style={{ width: '24px', height: '16px', objectFit: 'contain' }}
-            />
-          </div>
-        </Col>
-        <Col xs={12} md={9}>
-          <div className="d-flex flex-column align-items-center">
-            <p>Visit our white paper</p>
+  return (<>
+        <div className="gradient-02 z-0"  />
+    <motion.div
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: false, amount: 0.25 }}
+      className={`${styles.innerWidth} mx-auto ${styles.flexCenter} flex-col`}
+    ><TypingText title="| Road Map" textStyles="text-center" />
+
+    <img
+      src="/images/doge-cookie.png"
+      alt="headset"
+      className="img-fluid"
+      style={{ width: '204px', height: '106px', objectFit: 'contain' }}
+    />
+     <motion.p
+        variants={fadeIn('up', 'tween', 0.2, 1)}
+        className="mt-[8px] font-normal sm:text-[32px] text-[20px] text-center text-secondary-white"
+      >
+        <div className="d-flex flex-column align-items-center">
+            <a  href={require("../assets/doge-cookie-logo.png")}
+                download="myFile">Visit our white paper</a>
             <div className="d-flex justify-content-center">
-              <a
+              {/* <a
                 href={require("../assets/doge-cookie-logo.png")}
                 download="myFile"
                 className="btn btn-primary"
               >
                 Download file
-              </a>
+              </a> */}
             </div>
           </div>
-        </Col>
-      </Row>
-    </Container>
+      </motion.p>
+    </motion.div>
+    </>
   );
 }
 

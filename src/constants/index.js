@@ -78,7 +78,7 @@ export const newFeatures = [
     imgUrl: '/images/vrpano.svg',
     title: 'Presale stage 1',
     presale: '30 Billion $DCK',
-    subtitle:'0.0001$ = 1 DCK',
+    subtitle: '0.0001$ = 1 DCK',
     dollarPrice: '1$ = 10,000DCK',
     totalPrice: 'Total Price at stage 1 = $3M'
   },
@@ -86,15 +86,15 @@ export const newFeatures = [
     imgUrl: '/images/headset.svg',
     title: 'Presale stage 2',
     presale: '25Billion $DCK',
-    subtitle:'0.00018$ = 1DCK',
+    subtitle: '0.00018$ = 1DCK',
     dollarPrice: '1$ = 5555DCK',
     totalPrice: 'Total stage 2 price = $4.5M'
   },
-    {
+  {
     imgUrl: '/images/headset.svg',
     title: 'Presale Stage 3',
     presale: '20 Billion $DCK',
-    subtitle:'0.00022$ = 1DCK',
+    subtitle: '0.00022$ = 1DCK',
     dollarPrice: '1$ = 4,545DCK',
     totalPrice: ' Total stage 3 price = $4.4M'
   },
@@ -106,11 +106,11 @@ export const newFeatures = [
     dollarPrice: '1$ = 3846DCK',
     totalPrice: 'Total stage 4 price = $3.9M'
   },
-    {
+  {
     imgUrl: '/images/headset.svg',
     title: 'Total stage 5',
     presale: '10 Billion $DCK',
-    subtitle:'0.00030$ = 1DCK ',
+    subtitle: '0.00030$ = 1DCK ',
     dollarPrice: '1$ = 3,333DCK',
     totalPrice: 'Total stage 5 price =$3M'
   },
@@ -121,19 +121,22 @@ export const insights = [
     imgUrl: '/images/unibg4.jpg',
     title: 'Mission',
     subtitle:
-        "Doge Cookie is World's first meme token with a fully decentralized community and endless earning possibilities for its members. Our core objective is to build a formidable ecosystem that transfers 90% of its generated revenue back to its members.",
-  },
-  {
-    imgUrl: '/images/planet-07.png',
-    title: 'The Doge Cookie Token',
-    subtitle:
-        'The   Doge   cookie   native   cryp-tographically   secured   fungible   protocol   token   (ticker   symbol   $DCK)  is  a  transferable  repre-sentation   of   attributed   utility   functions  provided  in  the  Doge  cookie protocol/code 2. VALUESDOGE COOKIECommunity:AT $DCK we work with a team of cryptocurrency experts, journalists, developers, designers, and strategists who understand the in and out of the cryptocurrency world backs $DCK. The team at $DCK has han-dled core cryptocurrency projects with impressive success stories.',
+      "Doge Cookie is World's first meme token with a fully decentralized community and endless earning possibilities for its members. Our core objective is to build a formidable ecosystem that transfers 90% of its generated revenue back to its members.",
+    imgurl1: '/images/nft1 (1).png'
   },
   {
     imgUrl: '/images/planet-08.png',
     title: 'Community',
     subtitle:
-        'AT $DCK we work with a team of cryptocurrency experts, journalists, developers, designers, and strategists who understand the in and out of the cryptocurrency world backs $DCK. The team at $DCK has han-dled core cryptocurrency projects with impressive success stories',
+      'AT $DCK we work with a team of cryptocurrency experts, journalists, developers, designers, and strategists who understand the in and out of the cryptocurrency world backs $DCK. The team at $DCK has han-dled core cryptocurrency projects with impressive success stories',
+    imgurl1: '/images/nft1 (3).png'
+  },
+  {
+    imgUrl: '/images/planet-07.png',
+    title: 'The Doge Cookie Token',
+    subtitle:
+      'The   Doge   cookie   native   cryp-tographically   secured   fungible   protocol   token   (ticker   symbol   $DCK)  is  a  transferable  repre-sentation   of   attributed   utility   functions  provided  in  the  Doge  cookie protocol/code 2. VALUESDOGE COOKIECommunity:AT $DCK we work with a team of cryptocurrency experts, journalists, developers, designers, and strategists who understand the in and out of the cryptocurrency world backs $DCK. The team at $DCK has han-dled core cryptocurrency projects with impressive success stories.',
+    imgurl1: '/images/nft1 (2).png'
   },
 ];
 

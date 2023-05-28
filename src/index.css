@@ -17,12 +17,19 @@
   background-color: #27aae1;
 }
 .aboutbg{
-  border-radius: 5%;
   background-color:#99eaf5;
 }
 .explorebg{
-  border-radius: 5%;
   background-color: rgb(243, 105, 81)
+}
+.border-radius{
+  border-radius: 5%;
+}
+.signinbg{
+  background-image: url('/public/images/cover.png');
+}
+.forgotbg{
+  background-image: url('/public/images/planet-01.png');
 }
 
 .gradient-01 {

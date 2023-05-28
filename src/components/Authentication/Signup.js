@@ -31,7 +31,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-cover bg-center backcolor">
+    <div className="flex items-center justify-center min-h-screen bg-cover bg-center signinbg">
       <div className="flex flex-col justify-center items-center bg-white bg-opacity-80 p-10 rounded-md shadow-lg w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
         <h1 className="text-2xl font-bold underline mb-4">Signup Form</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">

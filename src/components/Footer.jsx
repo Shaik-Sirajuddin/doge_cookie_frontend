@@ -12,31 +12,31 @@ const Footer = () => (
     className={`${styles.xPaddings} py-16 relative`}
   >
     <div className="footer-gradient" />
-    <div className={`${styles.innerWidth} mx-100px flex flex-col gap-6`}>
+    <div className={`${styles.innerWidth} mx-100px flex flex-col gap-3`}>
       <div className="flex items-center justify-between flex-wrap gap-5">
-        <h4 className="font-bold md:text-[64px] text-[44px] text-white pl-8">
+        <h4 className="font-bold md:text-[30px] text-[44px] text-white pl-8">
           JOIN NOW
         </h4>
         <button type="button" className="flex items-center h-fit py-4 px-6 bg-[#25618B] rounded-[32px] gap-[12px]pl-8">
           <img
             src="/images/doge-cookie.png"
             alt="headset"
-            className="w-[] h-[24px] object-contain"
+            className="w-[] h-[15px] object-contain"
           />
-          <span className="font-normal text-[16px] text-white">
+          <span className="font-normal text-[12px] text-white">
             Buy Now
           </span>
         </button>
       </div>
 
       <div className="flex flex-col">
-        <div className="mb-[50px] h-[2px] bg-white opacity-10" />
+        <div className="mb-[50px] h-[2px] bg-white opacity-50" />
 
         <div className="flex items-center justify-between flex-wrap gap-4">
           <h4 className="font-extrabold text-[24px] text-white pl-8">
             DOGE COOKIE
           </h4>
-          <p className="font-normal text-[14px] text-white opacity-50">
+          <p className="font-normal text-[14px] text-white">
             Copyright © 2023 DOGE COOKIE. All rights reserved.
           </p>
 

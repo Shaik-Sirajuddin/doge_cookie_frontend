@@ -7,7 +7,7 @@ import { TitleText, TypingText } from '../components';
 import { fadeIn, staggerContainer } from '../utils/motion';
 
 const World = () => (
-  <section className={`${styles.paddings} relative z-10 bg-[#4b5563]`}>
+  <section className={`${styles.paddings} relative z-10 bg-[#4b5563] border-radius`}>
     <motion.div
       variants={staggerContainer}
       initial="hidden"

@@ -2,7 +2,7 @@ import React from 'react'
 
 function ComingSoon() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 border-radius">
       <h1 className="text-5xl font-bold text-white mb-8">
         <span className="text-blue-500">NFT-Metaverse Coming</span> Soon
       </h1>
