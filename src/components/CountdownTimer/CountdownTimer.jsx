@@ -29,8 +29,8 @@ export default function CountdownTimer() {
     }
 
     return (
-        <div className="grid grid-cols-5 gap-4">
-            <div className="col-span-3 bg-gray-200 p-4 rounded-lg">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-gray-200 p-4 rounded-lg">
                 <div className="staking-plans">
                     <h3>Total $DogeCookie tokens sold:</h3>
                 </div>
@@ -51,7 +51,7 @@ export default function CountdownTimer() {
                 </div>
             </div>
 
-            <div className="col-span-2 bg-gray-200 rounded-lg flex items-center">
+            <div className="bg-gray-200 rounded-lg flex items-center">
                 <div className="container mx-auto px-4">
                     <div className="staking-plans">
                        <h6 className="text">
@@ -71,7 +71,6 @@ export default function CountdownTimer() {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
