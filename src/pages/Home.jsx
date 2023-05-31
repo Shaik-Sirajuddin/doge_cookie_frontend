@@ -9,13 +9,13 @@ const Home = () => {
       <AuditSpace /><br/>
       <About /><br/>
       <div className="gradient-03 z-0" />
-      <Explore /><br/>
+      {/* <Explore /><br/> */}
       <div className="relative">
 
         <div className="gradient-04 z-0" />
         <WhatsNew />
       </div>
-      <World />
+      {/* <World /> */}
       <div className="relative">
         <Insights />
         <div className="gradient-04 z-0" />
