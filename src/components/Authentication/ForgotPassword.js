@@ -19,7 +19,7 @@ function ForgotPassword() {
             toast('Password Reset Mail has been sent');
           })
           .catch(function (error) {
-            console.log(error);
+            toast(error.response.data.message)
           });
       };
     
