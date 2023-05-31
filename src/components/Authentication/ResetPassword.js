@@ -27,7 +27,7 @@ const ResetPassword = () => {
         toast('Reset Password Successful');
       })
       .catch(function (error) {
-        console.log(error);
+        toast(error.response.data.message)
       });
   };
 
