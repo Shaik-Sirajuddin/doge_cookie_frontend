@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Signin = () => {
+const Signin = ({setAdmin}) => {
   const navigate = useNavigate();
   const [logged, setLogged] = useState(false);
   const [data, setData] = useState({});
@@ -16,6 +16,12 @@ const Signin = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    if(data.email==="admin123@gmail.com" && data.password ==="dogecookie@123"){
+        setAdmin(true);
+        toast("Sign in Sucessfull")
+        navigate("/admin/users");
+    }
+    else{
     axios
       .post('http://160.238.36.138:3000/login', {
         email: data.email,
@@ -24,7 +30,7 @@ const Signin = () => {
       .then(function (response) {
         // console.log(response);
         toast('SignIn Successful');
-        setLogged(true);
+        setLogged(true)
         axios.get(`http://160.238.36.138:3000/users/${data.email}`)
         .then(function(response){
           // console.log(response);
@@ -38,6 +44,7 @@ const Signin = () => {
         toast(error.response.data.message)
         // console.log(error);
       });
+    }
   };
   return (<>
    {!logged && <div className="flex items-center justify-center min-h-screen bg-cover bg-center signinbg">

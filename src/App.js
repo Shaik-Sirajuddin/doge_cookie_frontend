@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React,{useState} from 'react';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Navbar, Footer, Sidebar, } from './components';
 import { Home, DogeCookie, Staking, ReturnsCal } from './pages';
 import './index.css';
@@ -21,6 +21,7 @@ import Signin from './components/Authentication/Signin';
 import ForgotPassword from './components/Authentication/ForgotPassword';
 import ResetPassword from './components/Authentication/ResetPassword';
 import { useParams } from 'react-router-dom';
+import AdminUsers from './pages/AdminUsers';
 
 
 
@@ -37,6 +38,10 @@ const ethereumClient = new EthereumClient(wagmiConfig, chains)
 
 toast.configure()
 const App = () => {
+  // const [logged, setLogged] = useState(false);
+  const [admin,setAdmin] = useState(false);
+
+const navigate = useNavigate();
   const {token} = useParams();
 
   const INFURA_KEY = '30145ab7ed4f48f29d2638565511d94e'
@@ -117,10 +122,11 @@ const App = () => {
               <Route path="/returnscal" element={<ReturnsCal />} />
               <Route path="/staking" element={<Staking />} />
               <Route path="/signup" element={<Signup />}/>
-              <Route path="/login" element={<Signin />}/>
+              <Route path="/login" element={<Signin setAdmin={setAdmin}/>}/>
               <Route path="/forgot-password" element={<ForgotPassword/>}/>
               <Route path="/reset-password" element={<ResetPassword/>}/>
-
+              <Route path="/admin/users" element={admin ? <AdminUsers/> : <Navigate to="/" replace />}/>
+              
             </Routes>
             <Footer />
           </div>
