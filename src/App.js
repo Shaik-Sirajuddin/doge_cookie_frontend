@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Navbar, Footer, Sidebar, } from './components';
 import { Home, DogeCookie, Staking, ReturnsCal } from './pages';
 import './index.css';
@@ -14,6 +14,9 @@ import Signup from './components/Authentication/Signup';
 import Signin from './components/Authentication/Signin';
 import ForgotPassword from './components/Authentication/ForgotPassword';
 import ResetPassword from './components/Authentication/ResetPassword';
+import { useParams } from 'react-router-dom';
+import AdminUsers from './pages/AdminUsers';
+import ResponsiveNavbar from './components/ResponsiveNavbar';
 
 const chains = [bsc, mainnet]
 const projectId = 'a9da85a71b9681b6a3ef7950d068cb4a'
@@ -29,17 +32,28 @@ const ethereumClient = new EthereumClient(wagmiConfig, chains)
 toast.configure()
 const App = () => {
 
+  const [admin, setAdmin] = useState(false);
+
   return (
     <>
       <WagmiConfig config={wagmiConfig}>
         <div className="relative sm:-8 p-8 bg-primary-black min-h-screen overflow-hidden ">
-          <div className="sm:flex hidden mr-10 relative">
+          {/* <div className="sm:flex hidden mr-10 relative">
             <Sidebar />
-          </div>
+          </div> */}
+          <ResponsiveNavbar />
+          <div
+            style={{
+              height: '110px'
+            }}
+          ></div>
 
-
-          <div className="max-sm:w-full max-w-[1280px] lg:mx-24 sm:pr-5">
-            <Navbar />
+          <div className="max-sm:w-full max-w-[1280px] lg:mx-24 sm:pr-5"
+            style={{
+              'marginTop': '100px',
+            }}
+          >
+            {/* <Navbar /> */}
 
             <Routes>
               <Route path="/" element={<Home />} />
@@ -47,9 +61,10 @@ const App = () => {
               <Route path="/returnscal" element={<ReturnsCal />} />
               <Route path="/staking" element={<Staking />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Signin />} />
+              <Route path="/login" element={<Signin setAdmin={setAdmin} />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/admin/users" element={admin ? <AdminUsers /> : <Navigate to="/" replace />} />
 
             </Routes>
             <Footer />

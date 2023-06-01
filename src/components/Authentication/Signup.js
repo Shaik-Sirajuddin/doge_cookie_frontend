@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const Signup = () => {
+
+  const [signup, setSignup] = useState(false);
+  const [data, setData] = useState({});
+
   const {
     register,
     handleSubmit,
@@ -21,19 +25,27 @@ const Signup = () => {
       .then(function (response) {
         console.log(response);
         toast('SignUp successful');
+        setSignup(true);
+        axios.get(`http://160.238.36.138:3000/users/${data.email}`)
+          .then(function (response) {
+            // console.log(response);
+            setData(response.data);
+          })
+          .catch(function (error) {
+            toast(error.response.data.message)
+          })
       })
       .catch(function (error) {
-        console.log(error);
-        toast(error);
+        toast(error.response.data.message);
       });
 
     // Do something with the form data
   };
 
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-cover bg-center signinbg">
+  return (<>
+    {!signup && <div className="flex items-center justify-center min-h-screen bg-cover bg-center signinbg">
       <div className="flex flex-col justify-center items-center bg-white bg-opacity-80 p-10 rounded-md shadow-lg w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
-        <h1 className="text-2xl font-bold underline mb-4">Signup Form</h1>
+        <h1 className="text-2xl font-bold mb-4">Signup Form</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
           <div className="input-wrapper flex flex-col">
             <label htmlFor="email" className="text-gray-800 font-bold mb-2">
@@ -116,7 +128,20 @@ const Signup = () => {
           </div>
         </form>
       </div>
-    </div>
+    </div>}
+    {signup &&
+      <div className="flex items-center justify-center min-h-screen bg-cover bg-center backcolor">
+        <div className="flex flex-col justify-center items-center bg-white bg-opacity-80 p-10 rounded-md shadow-lg w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
+          <h1 className="text-2xl font-bold mb-4">Your Details</h1>
+          <h2 className="text-2xl font-bold mb-4">Badge :</h2> <span>{data.badge}</span><br />
+          <h2 className="text-2xl font-bold mb-4">Email :</h2> <span>{data.email}</span><br />
+          <h2 className="text-2xl font-bold mb-4">PackageID :</h2> <span>{data.packageId}</span><br />
+          <h2 className="text-2xl font-bold mb-4">Referal Code :</h2> <span>{data.referralCode}</span><br />
+          <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" onClick={() => { setSignup(false) }}>LogOut</button>
+        </div>
+      </div>
+    }
+  </>
   );
 };
 

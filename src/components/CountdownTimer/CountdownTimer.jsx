@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { differenceInSeconds, intervalToDuration, formatDuration } from 'date-fns';
 
 export default function CountdownTimer() {
-    const targetDate = new Date('2023-06-01T00:00:00'); // Set your target date here
+    const targetDate = new Date('2023-07-01T00:00:00'); // Set your target date here
     const [countdown, setCountdown] = useState(getCountdownTime());
 
     useEffect(() => {

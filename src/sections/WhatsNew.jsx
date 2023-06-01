@@ -8,7 +8,7 @@ import { NewFeatures, TitleText, TypingText } from '../components';
 const WhatsNew = () => (
   <section className={`${styles.paddings} relative z-10`}>
     <div
-     
+
       className={`${styles.innerWidth} mx-auto flex lg:flex-row flex-col gap-6`}
     >
       <div
@@ -18,22 +18,11 @@ const WhatsNew = () => (
         <TitleText title={<>Token in circulation: 100B</>} />
         <div className="mt-[48px] flex flex-wrap justify-between gap-[24px]">
           {newFeatures.map((feature) => (
-            <div className='bg-blue-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700' style={{padding:"3%"}}>
-            <NewFeatures key={feature.title} {...feature} />
+            <div className='bg-blue-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700' style={{ padding: "3%" }}>
+              <NewFeatures key={feature.title} {...feature} />
             </div>
           ))}
         </div>
-      </div>
-
-      <div
-        
-        className={`flex-1 ${styles.flexCenter}`}
-      >
-        <img
-          src="/images/characters.png"
-          alt="get-started"
-          className="w-[90%] h-[90%] object-contain"
-        />
       </div>
     </div>
   </section>

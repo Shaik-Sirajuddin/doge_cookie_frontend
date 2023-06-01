@@ -19,17 +19,17 @@ function ForgotPassword() {
             toast('Password Reset Mail has been sent');
           })
           .catch(function (error) {
-            console.log(error);
+            toast(error.response.data.message)
           });
       };
     
       return (
         <div className="flex items-center justify-center min-h-screen bg-cover bg-center forgotbg">
           <div className="flex flex-col justify-center items-center bg-white bg-opacity-80 p-10 rounded-md shadow-lg w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
-            <h1 className="text-2xl font-bold mb-4">Forgot Password</h1>
+            {/* <h1 className="text-2xl font-bold mb-4">Forgot Password</h1> */}
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 w-full">
               <div className="flex flex-col">
-                <label htmlFor="email" className="text-gray-800 font-bold mb-2">
+              <label htmlFor="email" className="text-gray-800 font-bold mb-2">
                   Email
                 </label>
                 <input

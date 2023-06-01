@@ -455,7 +455,7 @@ function DogeCookie() {
       <Web3Button
         icon="hide"
         style={{
-          // transform: "scale(1.3)",
+          // transform: "scalex(1.3)",
           marginTop: "20px",
         }}
       />

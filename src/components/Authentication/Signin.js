@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Signin = () => {
+const Signin = ({ setAdmin }) => {
   const navigate = useNavigate();
   const [logged, setLogged] = useState(false);
   const [data, setData] = useState({});
@@ -16,32 +16,40 @@ const Signin = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    axios
-      .post('http://160.238.36.138:3000/login', {
-        email: data.email,
-        password: data.password,
-      })
-      .then(function (response) {
-        // console.log(response);
-        toast('SignIn Successful');
-        setLogged(true);
-        axios.get(`http://160.238.36.138:3000/users/${data.email}`)
-          .then(function (response) {
-            // console.log(response);
-            setData(response.data);
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (data.email === "admin123@gmail.com" && data.password === "dogecookie@123") {
+      setAdmin(true);
+      toast("Sign in Sucessfull")
+      navigate("/admin/users");
+    }
+    else {
+      axios
+        .post('http://160.238.36.138:3000/login', {
+          email: data.email,
+          password: data.password,
+        })
+        .then(function (response) {
+          // console.log(response);
+          toast('SignIn Successful');
+          setLogged(true)
+          axios.get(`http://160.238.36.138:3000/users/${data.email}`)
+            .then(function (response) {
+              // console.log(response);
+              setData(response.data);
+            })
+            .catch(function (error) {
+              toast(error.response.data.message)
+            })
+        })
+        .catch(function (error) {
+          toast(error.response.data.message)
+          // console.log(error);
+        });
+    }
   };
   return (<>
     {!logged && <div className="flex items-center justify-center min-h-screen bg-cover bg-center signinbg">
       <div className="flex flex-col justify-center items-center bg-white bg-opacity-80 p-10 rounded-md shadow-lg w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
-        <h1 className="text-2xl font-bold underline mb-4">SignIn Form</h1>
+        <h1 className="text-2xl font-bold mb-4">SignIn Form</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 w-full">
           <div className="flex flex-col">
             <label htmlFor="email" className="text-gray-800 font-bold mb-2">
@@ -84,9 +92,9 @@ const Signin = () => {
             </button>
           </div>
           <div>
-            <a href="/forgot-password" className="text-blue-500">
+            {/* <a href="/forgot-password" className="text-blue-500">
               Forgot password
-            </a><br />
+            </a><br /> */}
             No Account yet? <a href='/signup' className="text-blue-500">Create One</a>
           </div>
         </form>

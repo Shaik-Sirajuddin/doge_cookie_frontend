@@ -1,0 +1,134 @@
+/** @format */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: #ffcb2b; */
+  background: linear-gradient(0deg, #ffcb2b, #ff6f00);
+  /* background-color: #ff8a00; */
+  color: #fff;
+  padding: 20px;
+  z-index: 999; /* Ensures the navbar stays on top of other elements */
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center;
+}
+.navbar-item a {
+  margin-right: 20px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+  position: relative;
+}
+
+.navbar-item a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-item a:hover::after {
+  transform: scaleX(1);
+}
+
+.navbar-icon {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+
+.open .navbar-icon {
+  transform: rotate(45deg);
+}
+
+.open .navbar-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  padding: 20px;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.open .navbar-item {
+  margin-bottom: 15px;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    align-items: center;
+  }
+  .navbar-logo {
+    max-width: 80%;
+  }
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-item {
+    margin: 10px 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+}
+
+.navbar-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.navbar-toggle .line {
+  width: 25px;
+  margin-top: 4px;
+  height: 3px;
+  background-color: #fff;
+  transition: transform 0.3s ease-in-out;
+}
+
+.open .line:first-of-type {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.open .line:nth-of-type(2) {
+  opacity: 0;
+}
+
+.open .line:last-of-type {
+  transform: translateY(-8px) rotate(-45deg);
+}
