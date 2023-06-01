@@ -31,7 +31,9 @@ const Home = () => {
       </div>
       {/* <World /> */}
       <div className="relative">
-        <Insights />
+        <section id="mission">
+          <Insights />
+        </section>
         <div className="gradient-04 z-0" />
         <Feedback />
         <br />

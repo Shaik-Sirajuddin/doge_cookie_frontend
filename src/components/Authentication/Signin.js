@@ -92,9 +92,9 @@ const Signin = ({ setAdmin }) => {
             </button>
           </div>
           <div>
-            {/* <a href="/forgot-password" className="text-blue-500">
+            <a href="/forgot-password" className="text-blue-500">
               Forgot password
-            </a><br /> */}
+            </a><br />
             No Account yet? <a href='/signup' className="text-blue-500">Create One</a>
           </div>
         </form>

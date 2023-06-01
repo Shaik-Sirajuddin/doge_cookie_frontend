@@ -33,7 +33,9 @@ const ResponsiveNavbar = () => {
       </Link>
       <ul className="navbar-menu">
         <li className="navbar-item">
-          <Link to="/">Our Mission</Link>
+          <a href="/#mission" onClick={() => scrollToSection("mission")}>
+            Our Mission
+          </a>
         </li>
         <li className="navbar-item">
           <a href="/#about" onClick={() => scrollToSection("about")}>
