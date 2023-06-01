@@ -2,9 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import {
+  bnbChainId,
   bnbDckAddress,
   bnbPresaleAddress,
   bnbUsdAddress,
+  ethChainId,
   ethDckAddress,
   ethPresaleAddress,
   ethUsdAddress,
@@ -124,7 +126,7 @@ function DogeCookie() {
   } = useWaitForTransaction({
     hash: buyUsdtTransactionHash,
   });
-  
+
   const {
     isLoading: buyNativeIsLoading,
     isSuccess: buyNativeIsSuccess,
@@ -177,7 +179,7 @@ function DogeCookie() {
   }, [buyNativeIsLoading, buyNativeIsSuccess, buyNativeIsError]);
   const getBalance = async () => {
     let dckAddress;
-    if (chainId === 56) {
+    if (chainId === bnbChainId) {
       dckAddress = bnbDckAddress;
     } else {
       dckAddress = ethDckAddress;
@@ -237,14 +239,14 @@ function DogeCookie() {
         return;
       }
       console.log(chainId);
-      if (!(chainId === 1 || chainId === 56 || chainId === 11155111)) {
+      if (!(chainId === ethChainId || chainId === bnbChainId)) {
         toast("Invalid chain");
         setLoading(false);
         return;
       }
       if (buyingMethod === "erc20" || buyingMethod === "bep20") {
         let value = parseInt(usdtAmount);
-        if (chainId === 56) {
+        if (chainId === bnbChainId) {
           value = value * Math.pow(10, 18);
         } else {
           value = value * Math.pow(10, 18);
@@ -265,14 +267,14 @@ function DogeCookie() {
   const sendApproveTransaction = async (value, chainId) => {
     try {
       let presaleContract;
-      if (chainId === 56) {
+      if (chainId === bnbChainId) {
         presaleContract = bnbPresaleAddress;
       } else {
         presaleContract = ethPresaleAddress;
       }
       setLoading(true);
       setNotifyText("Sending Approve Transactoin");
-      if (chainId === 56) {
+      if (chainId === bnbChainId) {
         let result = await data.writeContract({
           abi: tokenAbi,
           address: bnbUsdAddress,
@@ -308,7 +310,7 @@ function DogeCookie() {
       setLoading(true);
       setNotifyText("Sending Buy Transaction");
       let value = usdtData.value;
-      if (chainId === 56) {
+      if (chainId === bnbChainId) {
         let result = await data.writeContract({
           abi: presaleAbi,
           address: bnbPresaleAddress,
@@ -338,16 +340,9 @@ function DogeCookie() {
   };
   const buyWithNative = async (value) => {
     try {
-      let presaleContract;
-      if (chainId === 56) {
-        presaleContract = bnbPresaleAddress;
-      } else {
-        presaleContract = ethPresaleAddress;
-      }
-
       setNotifyText("Sending Buy Transaction");
       let ethersToWei = Web3.utils.toWei(ethAmount, "ether");
-      if (chainId === 56) {
+      if (chainId === bnbChainId) {
         let result = await data.writeContract({
           abi: presaleAbi,
           address: bnbPresaleAddress,
@@ -406,16 +401,16 @@ function DogeCookie() {
   const handleBuyingMethodChange = (method) => {
     setBuyingMethod(method);
     if (method === "eth" || method === "erc20") {
-      if (chainId !== 11155111) {
-        toast.info("Wrong Network Detected! Switch your network first");
-        switchNetwork(11155111);
+      if (chainId !== ethChainId) {
+        toast.info("Wrong Network Detected! Switch your network to eth");
+        switchNetwork(ethChainId);
       } else {
         handleModalOpen();
       }
     } else {
-      if (chainId !== 56) {
-        toast.info("Wrong Network Detected! Switch your network first");
-        switchNetwork(56);
+      if (chainId !== bnbChainId) {
+        toast.info("Wrong Network Detected! Switch your network to bsc");
+        switchNetwork(bnbChainId);
       } else {
         handleModalOpen();
       }
@@ -460,10 +455,11 @@ function DogeCookie() {
       <Web3Button
         icon="hide"
         style={{
-          transform: "scale(1.3)",
+          // transform: "scale(1.3)",
           marginTop: "20px",
         }}
       />
+      <w3m-network-switch></w3m-network-switch>
 
       {isConnected ? (
         <div

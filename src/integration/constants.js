@@ -7,7 +7,7 @@ export const ethPresaleAddress = "0x9ce4adca534d145548b19d3172549fe2f8da4036"
 export const ethStakingAddress = "0x68CB7F8b290D7b8De512113bC64a84a38966f132"
 export const bnbStakingAddress = "0x68CB7F8b290D7b8De512113bC64a84a38966f132"
 export const bnbChainId = 56
-export const ethChainId = 11155111
+export const ethChainId = 1
 export const presaleAbi = [
 	{
 		"inputs": [

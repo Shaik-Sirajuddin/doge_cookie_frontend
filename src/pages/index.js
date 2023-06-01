@@ -5,7 +5,7 @@ import ReturnsCal from './ReturnsCal';
 
 export {
   DogeCookie,
-    Home,
-    Staking,
-    ReturnsCal
+  Home,
+  Staking,
+  ReturnsCal
 }

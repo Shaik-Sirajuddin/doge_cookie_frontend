@@ -237,9 +237,9 @@ const Staking = () => {
       }
       if (!isConnected) return;
       let stakingAddress;
-      if (chainId === 56) {
+      if (chainId === bnbChainId) {
         stakingAddress = bnbStakingAddress;
-      } else if (chainId === 11155111) {
+      } else if (chainId === ethChainId) {
         stakingAddress = ethStakingAddress;
       } else {
         return;
@@ -266,9 +266,9 @@ const Staking = () => {
   const getMyStaking = async () => {
     if (!isConnected) return;
     let stakingAddress;
-    if (chainId === 56) {
+    if (chainId === bnbChainId) {
       stakingAddress = bnbStakingAddress;
-    } else if (chainId === 11155111) {
+    } else if (chainId === ethChainId) {
       stakingAddress = ethStakingAddress;
     } else {
       return;
@@ -326,7 +326,11 @@ const Staking = () => {
           }}
         >
           <h2>Staking Page</h2>
-          <Web3Button icon="hide" style={{}} />
+          <div>
+            <Web3Button icon="hide" style={{}} />
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <w3m-network-switch></w3m-network-switch>
+          </div>
         </div>
 
         <div className="staking-container">
