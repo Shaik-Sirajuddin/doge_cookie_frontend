@@ -17,7 +17,7 @@ const ResetPassword = () => {
     const { email, password } = data;
 
     axios
-      .post('http://160.238.36.138:3000/reset-password', {
+      .post('https://api.dogecookie.io/reset-password', {
         email,
         password,
         token,

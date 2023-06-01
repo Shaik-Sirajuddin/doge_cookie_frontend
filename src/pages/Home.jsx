@@ -44,7 +44,9 @@ const Home = () => {
           <Roadmap />
         </section>
         <br />
-        <ComingSoon />
+        <section id="nft">
+          <ComingSoon />
+        </section>
       </div>
     </div>
   );

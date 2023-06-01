@@ -17,7 +17,7 @@ const Signup = () => {
   // Form submission handler
   const onSubmit = (data) => {
     axios
-      .post('http://160.238.36.138:3000/signup', {
+      .post('https://api.dogecookie.io/signup', {
         email: data.email,
         password: data.password,
         packageId: data.packageid,
@@ -26,7 +26,7 @@ const Signup = () => {
         console.log(response);
         toast('SignUp successful');
         setSignup(true);
-        axios.get(`http://160.238.36.138:3000/users/${data.email}`)
+        axios.get(`https://api.dogecookie.io/users/${data.email}`)
           .then(function (response) {
             // console.log(response);
             setData(response.data);

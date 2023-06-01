@@ -23,7 +23,7 @@ const Signin = ({ setAdmin }) => {
     }
     else {
       axios
-        .post('http://160.238.36.138:3000/login', {
+        .post('https://api.dogecookie.io/login', {
           email: data.email,
           password: data.password,
         })
@@ -31,7 +31,7 @@ const Signin = ({ setAdmin }) => {
           // console.log(response);
           toast('SignIn Successful');
           setLogged(true)
-          axios.get(`http://160.238.36.138:3000/users/${data.email}`)
+          axios.get(`https://api.dogecookie.io/users/${data.email}`)
             .then(function (response) {
               // console.log(response);
               setData(response.data);

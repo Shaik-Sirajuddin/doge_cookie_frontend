@@ -1,23 +1,23 @@
 module.exports = {
-  content: [ "./public/index.html",
-  "./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./public/index.html",
+    "./src/**/*.{js,jsx,ts,tsx}"],
 
   mode: 'jit',
   darkmode: false,
-   screens: {
-      'sm': '640px',
-      // => @media (min-width: 640px) { ... }
+  screens: {
+    'sm': '640px',
+    // => @media (min-width: 640px) { ... }
 
-      'md': '768px',
-      // => @media (min-width: 768px) { ... }
+    'md': '768px',
+    // => @media (min-width: 768px) { ... }
 
-      'lg': '1024px',
-    },
-    
+    'lg': '1024px',
+  },
+
   theme: {
     extend: {
       colors: {
-        'primary-black': '#ffcb2b',
+        'primary-black': '#1E3A8A',
         'secondary-white': '#334155',
       },
       transitionTimingFunction: {
