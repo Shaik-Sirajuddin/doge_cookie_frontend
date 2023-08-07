@@ -143,6 +143,7 @@ const Banner = () => {
       buyNativeIsSuccess,
       buyNativeIsError
     );
+    updateSupply();
     if (buyNativeIsLoading) {
       setLoading(true);
       toast.success("Transaction sent");
@@ -193,6 +194,7 @@ const Banner = () => {
       buyUsdtIsSuccess,
       buyUsdtIsError
     );
+    updateSupply();
     if (buyUsdtIsLoading) {
       setLoading(true);
       toast.success("Transaction sent");
