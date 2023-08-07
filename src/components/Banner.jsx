@@ -13,7 +13,7 @@ import {
   presaleAbi,
   tokenAbi,
 } from "../integration/constants";
-import { parseEther } from "ethers";
+import { parseEther, toBigInt } from "ethers";
 import Web3 from "web3";
 import { toast } from "react-toastify";
 import { Web3Button } from "@web3modal/react";
@@ -30,7 +30,27 @@ import banner_title from "../assets/img/banner-title.png";
 import solidProof from "../assets/img/solidProof.png";
 import CountdownCard from "./Countdown";
 import InputControl from "./InputControl";
+
+import { ethers } from "ethers";
+
+const ethProvider = new ethers.JsonRpcProvider(
+  "https://mainnet.infura.io/v3/30145ab7ed4f48f29d2638565511d94e"
+);
+const binanceProvider = new ethers.JsonRpcProvider(
+  "https://bsc-dataseed.bnbchain.org"
+);
+const contract = new ethers.Contract(
+  ethPresaleAddress,
+  presaleAbi,
+  ethProvider
+);
+const bnbContract = new ethers.Contract(
+  bnbPresaleAddress,
+  presaleAbi,
+  binanceProvider
+);
 const Banner = () => {
+  const maxSupply = 3000000000000000000n + 30000000000000000000n;
   const [ethAmount, setEthAmount] = useState("");
   const [usdtAmount, setUsdtAmount] = useState("");
   const [referralCode, setReferralCode] = useState("");
@@ -43,6 +63,7 @@ const Banner = () => {
   const [showModal, setShowModal] = useState(false);
   const [tokensPerUsdt, setTokensPerUsdt] = useState(10000);
   const [expectedTokens, setExpectedTokens] = useState(0);
+  const [amountRaised, setAmountRaised] = useState(0n);
   const [usdtData, setUsdtData] = useState({
     value: "",
   });
@@ -151,7 +172,18 @@ const Banner = () => {
     result = Number(result) / Math.pow(10, 9);
     setDckBalance(result);
   };
+  const updateSupply = async () => {
+    let supply = await bnbContract.supply();
+    supply += await contract.supply();
+    let tempProgress = supply / maxSupply;
+    let tokensSold = maxSupply - supply;
+    let _amountRaised = tokensSold / 1000000000n / toBigInt(tokensPerUsdt);
+    setAmountRaised(_amountRaised);
+    console.log("Progress ", tempProgress, _amountRaised);
+    setProgress(tempProgress);
+  };
   useEffect(() => {
+    updateSupply();
     getBalance();
   }, [isConnected, chainId]);
   useEffect(() => {
@@ -450,12 +482,12 @@ const Banner = () => {
             </div>
             <div className="banner-right">
               <div className="presale-state">
-                <h4 className="presale-state-header">
-                  <span>Presale Stage 1</span> <small>$0.001</small>
+                <h4 className="presale-state-header justify-content-center text-center">
+                  {/* <span>Presale Stage 1</span> <small>$0.001</small> */}
+                  <small>Dogecookie Presale Now Open</small>
                 </h4>
                 <div className="presale-state-body">
                   <CountdownCard targetDate={`September 31, 2023 00:00:00`} />
-                  <h4 className="price text-center">$167,000 /$500,000</h4>
                   <div
                     className="progress __progress"
                     style={{
@@ -467,15 +499,17 @@ const Banner = () => {
                         className="progress-bar"
                         style={{ width: `${progress}%` }}
                       ></div>
+                      <span className="text">UNTIL SOFTCAP</span>
                     </div>
                   </div>
                   <div
-                    className="text-title subtxt"
+                    className="text-title subtxt font-bold"
                     style={{ fontSize: "19px" }}
                   >
-                    Join Others Before the Price increases to $0.02
+                    Amount Raised : ${parseInt(amountRaised)} /$3,500,000
                   </div>
-                  <div className="rate">$1 = 3092 $DCK</div>
+                  <div className="rate mb-2">Current Price : 0.0001</div>
+                  <div className="rate">Next Price : 0.0002</div>
                   <div className="d-flex flex-wrap gap-3">
                     {!status && (
                       <>

@@ -684,7 +684,7 @@ header {
 		}
 		.rate {
 			color: var(--dark-dark-500, #1a1d20);
-			font-size: 26px;
+			font-size: 20px;
 			font-weight: 700;
 			margin-bottom: 37px;
 		}
@@ -738,28 +738,31 @@ header {
 	color: var(--title);
 }
 .__progress {
-	height: 14px;
+	height: 35px;
+	// border: 1px solid var(--base);
+	overflow: hidden;
+	border-radius: 35px;
 	overflow: visible;
 	&::after,
 	&::before {
 		content: "";
 		position: absolute;
-		width: 15px;
-		height: 15px;
+		width: 36px;
+		height: 36px;
 		border-radius: 50%;
 		background: var(--title);
-		right: -8px;
-		top: -5px;
+		right: -18px;
+		top: -15px;
 		z-index: 1;
 	}
 	position: relative;
 	&::after {
-		top: 5px;
+		top: 15px;
 	}
 	.progress-bar {
 		background-color: var(--base);
 		z-index: 9;
-		height: 14px;
+		height: 100%;
 	}
 	.progress-inner {
 		background: var(--title);
@@ -769,16 +772,28 @@ header {
 		&::before {
 			content: "";
 			position: absolute;
-			width: 15px;
-			height: 15px;
+			width: 36px;
+			height: 36px;
 			border-radius: 50%;
 			background: var(--base);
-			left: -8px;
-			top: -5px;
+			left: -18px;
+			top: -15px;
 		}
 		&::after {
-			top: 5px;
+			top: 15px;
 		}
+	}
+	.text {
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		text-align: center;
+		width: 100%;
+		text-transform: uppercase;
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--white);
 	}
 }
 .about-section {
