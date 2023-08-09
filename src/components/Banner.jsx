@@ -489,7 +489,7 @@ const Banner = () => {
                   <small>Dogecookie Presale Now Open</small>
                 </h4>
                 <div className="presale-state-body">
-                  <CountdownCard targetDate={`September 31, 2023 00:00:00`} />
+                  <CountdownCard targetDate={`September 31, 2022 00:00:00`} />
                   <div
                     className="progress __progress"
                     style={{

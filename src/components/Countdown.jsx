@@ -7,10 +7,30 @@ const renderer = ({ days, hours, minutes, seconds, completed, className }) => {
   hours = (days % 24) + hours;
   if (completed) {
     localStorage.setItem("presale", "ended");
+    // return (
+    //   <h3 style={{ color: "#DC3545", marginBottom: "30px" }}>
+    //     Presale has Ended!
+    //   </h3>
+    // );
     return (
-      <h3 style={{ color: "#DC3545", marginBottom: "30px" }}>
-        Presale has Ended!
-      </h3>
+      <div className={`countdown ${className}`}>
+        <div className="item">
+          <span className="subtitle">00</span>
+          <span>Days</span>
+        </div>
+        <div className="item">
+          <span className="subtitle">00</span>
+          <span>Hours</span>
+        </div>
+        <div className="item">
+          <span className="subtitle">00</span>
+          <span>Mins</span>
+        </div>
+        <div className="item">
+          <span className="subtitle">00</span>
+          <span>Secs</span>
+        </div>
+      </div>
     );
   } else {
     localStorage.setItem("presale", "running");
