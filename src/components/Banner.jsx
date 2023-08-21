@@ -339,7 +339,7 @@ const Banner = () => {
           abi: presaleAbi,
           address: bnbPresaleAddress,
           functionName: "buyWithNativeToken",
-          args: [ethersToWei, referralCode],
+          args: [parseInt(ethersToWei), referralCode],
           from: address,
           value: parseEther(ethAmount),
         });
@@ -350,7 +350,7 @@ const Banner = () => {
           abi: presaleAbi,
           address: ethPresaleAddress,
           functionName: "buyWithNativeToken",
-          args: [ethersToWei, referralCode],
+          args: [parseInt(ethersToWei), referralCode],
           from: address,
           value: parseEther(ethAmount),
         });
