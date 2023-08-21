@@ -27,7 +27,7 @@ const Tokenomics = () => {
 						</div>
 						<div className="item">
 							<span>Presale Price</span>
-							<h5 className="text-base">$0.001</h5>
+							<h5 className="text-base">$0.0001</h5>
 						</div>
 						<div className="item">
 							<span>Token in Circulation</span>

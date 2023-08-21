@@ -15,6 +15,7 @@
 		@media (max-width: 767px) {
 			@content;
 		}
+		/* aa */
 	} @else if $point==lg {
 		@media (min-width: 992px) {
 			@content;
@@ -288,6 +289,11 @@ header {
 				}
 			}
 		}
+		svg,
+		img {
+			width: 18px;
+			height: 18px;
+		}
 		@include breakpoint(max-md) {
 			position: fixed;
 			background: var(--secondary-secondary-50, #fff7ec);
@@ -315,7 +321,8 @@ header {
 					.social-icons {
 						width: 100%;
 						justify-content: center;
-						svg {
+						svg,
+						img {
 							width: 24px;
 							height: 24px;
 						}
@@ -1342,7 +1349,8 @@ footer {
 			gap: 79px;
 		}
 		li {
-			svg {
+			svg,
+			img {
 				width: 46px;
 				height: 46px;
 				@include breakpoint(max-md) {
@@ -1694,4 +1702,14 @@ footer {
 }
 .h-8px {
 	height: 8px;
+}
+.no-gutter {
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	box-shadow: none;
+	border: none;
+}
+.edit-badge-button {
+	width: 20px;
 }

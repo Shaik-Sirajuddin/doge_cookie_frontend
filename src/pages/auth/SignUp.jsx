@@ -1,11 +1,9 @@
-/** @format */
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../../components/AuthLayout";
 import InputControl from "../../components/InputControl";
 import { useState } from "react";
-import { errorToast, succesToast } from "../../utls/toast/toast";
+import { errorToast } from "../../utls/toast/toast";
 import { toast } from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
 
@@ -117,16 +115,60 @@ const select = [
     text: "Select a Package ID",
   },
   {
-    value: "457841",
-    text: "457841",
+    value: "1",
+    text: "$100*10 (5%)",
   },
   {
-    value: "434443",
-    text: "434443",
+    value: "2",
+    text: "$200*10 (5.5%)",
   },
   {
-    value: "345678",
-    text: "345678",
+    value: "3",
+    text: "$500$*10 (6%)",
+  },
+  {
+    value: "4",
+    text: "$1000*10 (6.5%)",
+  },
+  {
+    value: "5",
+    text: "$2,000*10(7%)",
+  },
+  {
+    value: "6",
+    text: "$5,000*10(8%)",
+  },
+  {
+    value: "7",
+    text: "$10,000*10 (10%)",
+  },
+  {
+    value: "8",
+    text: "$100*5(3.5%)",
+  },
+  {
+    value: "9",
+    text: "$200*5(4%)",
+  },
+  {
+    value: "10",
+    text: "$500*5(4.5%)",
+  },
+  {
+    value: "11",
+    text: "$1,000*5(5%)",
+  },
+  {
+    value: "12",
+    text: "$2,000*5(5.5%)",
+  },
+  {
+    value: "13",
+    text: "$5,000*10(6.5%)",
+  },
+  {
+    value: "14",
+    text: "$10,000*10(7.5%)",
   },
 ];
 export default SignUp;

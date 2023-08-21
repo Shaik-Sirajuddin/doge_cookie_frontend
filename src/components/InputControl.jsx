@@ -1,8 +1,6 @@
-/** @format */
-
 import React from "react";
 
-const InputControl = ({ label, select, endText, ...rest }) => {
+const InputControl = ({ label, select, endText, setText, ...rest }) => {
   return (
     <div>
       {label && <label className="form-label">{label}</label>}

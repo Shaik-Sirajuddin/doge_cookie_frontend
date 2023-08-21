@@ -5,9 +5,11 @@ import { errorToast, succesToast } from "../utls/toast/toast";
 const useAuthApis = () => {
   const [user, setUser] = useState(null);
   const [tokenChanged, setTokenChanged] = useState(false);
+  const [isRouterLoading, setRouteLoading] = useState(true);
 
   /* Sing up */
   const signUp = (email, password, packageId, setSignUpCondition, navigate) => {
+    setRouteLoading(true);
     axios
       .post(`${process.env.REACT_APP_API_BASE_URL}/signup`, {
         email,
@@ -21,26 +23,32 @@ const useAuthApis = () => {
         }
       })
       .catch((error) => {
-        errorToast("Something went wrong!");
+        errorToast(error?.response?.data?.message);
       })
       .finally(() => {
         setSignUpCondition((prevState) => ({ ...prevState, isLoading: false }));
+        setRouteLoading(false);
       });
   };
 
-  /* Sign in */
-
   const signIn = (email, password, setSignInCondition, navigate) => {
+    setRouteLoading(true);
     axios
       .post(`${process.env.REACT_APP_API_BASE_URL}/login`, {
         email,
         password,
       })
       .then((response) => {
-        if (response.data.token) {
-          localStorage.setItem("token", response.data.token);
+        if (response.data.accessToken) {
+          localStorage.setItem("token", response.data.accessToken);
+          localStorage.setItem("email", email);
           setTokenChanged(!tokenChanged);
           succesToast("Log in success.");
+          if (email === "admin@gmail.com") {
+            navigate("/admin/dashboard");
+          } else {
+            navigate("/dashboard");
+          }
         }
       })
       .catch((error) => {
@@ -52,13 +60,14 @@ const useAuthApis = () => {
       })
       .finally(() => {
         setSignInCondition((prevState) => ({ ...prevState, isLoading: false }));
-        navigate("/");
+        setRouteLoading(false);
       });
   };
 
   /* Forgot Password */
 
   const forgotPassword = (email, SetForgotPasswordCondition, setSendCode) => {
+    setRouteLoading(true);
     axios
       .post(`${process.env.REACT_APP_API_BASE_URL}/forgot-password`, {
         email,
@@ -80,19 +89,23 @@ const useAuthApis = () => {
           ...prevState,
           isLoading: false,
         }));
+        setRouteLoading(false);
       });
   };
 
   //Logout
   const logOut = (navigate) => {
+    setRouteLoading(true);
     localStorage.removeItem("token");
     setUser(null);
     navigate("/");
     succesToast("Logout success.");
+    setRouteLoading(false);
   };
 
   //Reset password
   const resetPassword = (password, resetToken, setForgotPasswordCondition) => {
+    setRouteLoading(true);
     axios
       .post(`${process.env.REACT_APP_API_BASE_URL}/forgot-password`, {
         password,
@@ -111,21 +124,36 @@ const useAuthApis = () => {
           ...prevState,
           isLoading: false,
         }));
+        setRouteLoading(false);
       });
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    const email = localStorage.getItem("email");
+
+    if (token && email) {
+      setRouteLoading(true);
       axios
-        .get(
-          `${process.env.REACT_APP_API_BASE_URL}/retrive-user?token=${token}`
-        )
+        .get(`${process.env.REACT_APP_API_BASE_URL}/users/${email}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           if (response.data.email) {
             setUser(response.data);
+            setRouteLoading(false);
           }
+        })
+        .catch((error) => {
+          errorToast(error.message);
+        })
+        .finally(() => {
+          setRouteLoading(false);
         });
+    } else {
+      setRouteLoading(false);
     }
   }, [tokenChanged]);
 
@@ -136,6 +164,7 @@ const useAuthApis = () => {
     forgotPassword,
     logOut,
     resetPassword,
+    isRouterLoading,
   };
 };
 

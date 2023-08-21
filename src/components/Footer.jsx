@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import mask from "../assets/img/footer-mask.png";
-import { SocialIcon } from "./Header";
-import { AngleRight, Discord, Instagram2, Telegram2, Twitter2 } from "./Icon";
 import { HashLink } from "react-router-hash-link";
+import mask from "../assets/img/footer-mask.png";
+import medium from "../assets/img/medium.png";
+import { SocialIcon } from "./Header";
+import { AngleRight, Instagram2, Telegram2, Twitter2 } from "./Icon";
 const Footer = () => {
   return (
     <footer style={{ WebkitMask: `url(${mask}) no-repeat top center / cover` }}>
@@ -27,7 +28,13 @@ const Footer = () => {
           <h3 className="title">Stay Up-to-Date with the Community</h3>
           <SocialIcon data={social} />
           <div className="copyright">
-            Copyright &copy; DogeCookie. All Rights Reserved.
+            <div>Copyright &copy; DogeCookie. All Rights Reserved.</div>
+            <Link
+              to="mailto:support@dogecookie.org"
+              className="text-title mt-2 d-inline-block"
+            >
+              support@dogecookie.org
+            </Link>
           </div>
         </div>
       </div>
@@ -44,12 +51,12 @@ const social = [
     url: "https://instagram.com/dogecookiesninja?igshid=OGQ5ZDc2ODk2ZA==",
   },
   {
-    icon: <Discord />,
+    icon: <img src={medium} alt="" />,
     url: "https://medium.com/@dogecookieENG",
   },
   {
     icon: <Telegram2 />,
-    url: "https://t.me/dogecookieENG",
+    url: "https://t.me/dogecookiecommunity",
   },
 ];
 export default Footer;

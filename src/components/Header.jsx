@@ -1,7 +1,11 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HashLink, NavHashLink } from "react-router-hash-link";
+import useAuth from "../Hooks/useAuth";
 import logo from "../assets/img/logo.png";
+import medium from "../assets/img/medium.png";
 import mini_dog from "../assets/img/mini-dog.png";
 import shapes from "../assets/img/shapes-bg.png";
 import usa from "../assets/img/usa.png";
@@ -9,16 +13,15 @@ import Dropdown from "./Dropdown";
 import {
   ClearIcon,
   Close,
-  Discord,
   Hamburger,
   Instagram,
   Telegram,
   Twitter,
 } from "./Icon";
-import useAuth from "../Hooks/useAuth";
 const Header = () => {
   const [open, setOpen] = useState();
   const { user, logOut } = useAuth();
+  const [isLoggedInBefore, setIsLoggedInBefore] = useState();
 
   const [deviceWidth, setDeviceWidth] = useState(window.innerWidth);
 
@@ -34,6 +37,16 @@ const Header = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+
+    if (email) {
+      setIsLoggedInBefore(true);
+    } else {
+      setIsLoggedInBefore(false);
+    }
   }, []);
 
   return (
@@ -62,7 +75,10 @@ const Header = () => {
             </div>
             {/* {screen >= 768 && <SocialIcon />} */}
             <div className={`menu-wrapper ${open ? "open" : ""}`}>
-              <div className="close-icon" onClick={() => setOpen(!open)}>
+              <div
+                className="close-icon d-xl-none"
+                onClick={() => setOpen(!open)}
+              >
                 <ClearIcon />
               </div>
               <ul className="menu">
@@ -78,6 +94,19 @@ const Header = () => {
                       <HashLink to={item?.url}>{item?.title}</HashLink>
                     </li>
                   )
+                )}
+                {user ? (
+                  <li onClick={() => setOpen(false)}>
+                    <HashLink to={"/dashboard"}>Dashboard</HashLink>
+                  </li>
+                ) : !user && isLoggedInBefore ? (
+                  <li onClick={() => setOpen(false)}>
+                    <HashLink to={"/login"}>Sign In</HashLink>
+                  </li>
+                ) : (
+                  <li onClick={() => setOpen(false)}>
+                    <HashLink to={"/sign-up"}>Become a Member</HashLink>
+                  </li>
                 )}
               </ul>
               <div className="d-flex justify-content-between align-items-center column-gap-3 social-container">
@@ -183,30 +212,18 @@ const social = [
     url: "https://instagram.com/dogecookiesninja?igshid=OGQ5ZDc2ODk2ZA==",
   },
   {
-    icon: <Discord />,
+    icon: <img src={medium} alt="" />,
     url: "https://medium.com/@dogecookieENG",
   },
   {
     icon: <Telegram />,
-    url: "https://t.me/dogecookieENG",
+    url: "https://t.me/dogecookiecommunity",
   },
 ];
 const language = [
   {
     img: usa,
     name: "EN",
-  },
-  {
-    img: usa,
-    name: "BN",
-  },
-  {
-    img: usa,
-    name: "IR",
-  },
-  {
-    img: usa,
-    name: "PK",
   },
 ];
 const menu = [
@@ -230,9 +247,9 @@ const menu = [
     title: "Roadmap",
     url: "/#roadmap",
   },
-  {
+  /* {
     title: "Become a Member",
     url: "/sign-up",
-  },
+  }, */
 ];
 export default Header;
