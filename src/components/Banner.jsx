@@ -508,7 +508,8 @@ const Banner = () => {
                     className="text-title subtxt font-bold"
                     style={{ fontSize: "19px" }}
                   >
-                    Amount Raised : ${parseInt(amountRaised)} /$3,500,000
+                    {/* Amount Raised : ${parseInt(amountRaised)} /$3,500,000 */}
+                    Amount Raised : $300,000 /$3,500,000
                   </div>
                   <div className="rate mb-2">Current Price : 0.0001</div>
                   <div className="rate">Next Price : 0.0002</div>
